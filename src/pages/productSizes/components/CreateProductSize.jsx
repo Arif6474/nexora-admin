@@ -21,7 +21,7 @@ export default function CreateProductSize({ setShowCreateForm, refetch, parentID
         resolver: zodResolver(productSizeFormSchema),
         defaultValues: {
             size: "",
-            serial: '0',
+            quantity: "0",
         },
     });
 
@@ -57,7 +57,7 @@ export default function CreateProductSize({ setShowCreateForm, refetch, parentID
                         options={sizeOptions}
                         placeholder="Choose a master size"
                     />
-                    <InputField control={form.control} name="serial" label="Serial" placeholder="Enter serial number" type="text" />
+                    <InputField control={form.control} name="quantity" label="Quantity" placeholder="Enter quantity" type="text" />
                     <Button className="mt-2" loading={isLoading}>
                         Create Product Size
                     </Button>

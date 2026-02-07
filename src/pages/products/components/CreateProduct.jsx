@@ -12,6 +12,7 @@ import { useGetCategoriesQuery } from "../../../redux/features/categories/catego
 import { useGetSubcategoriesQuery } from "../../../redux/features/subcategories/subcategoryApi";
 import SearchSelectField from "../../../components/ui/searchableSelect";
 import { RichTextInput } from "../../../components/custom/RichTextInput";
+import SelectField from "@/components/custom/SelectField";
 
 
 export default function CreateProduct({ setShowCreateForm, refetch }) {
@@ -49,6 +50,8 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
             image: "",
             isFeatured: false,
             isActive: true,
+            gender: 'Unisex',
+            discount: '0',
         }
 
     });
@@ -68,6 +71,8 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
         formData.append("price", data.price);
         formData.append("quantity", data.quantity);
         formData.append("category", category);
+        formData.append("gender", data.gender);
+        formData.append("discount", data.discount);
         if (subCategory) formData.append("subCategory", subCategory);
         if (image) formData.append("image", image);
 
@@ -125,7 +130,21 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
                         />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField control={form.control} name="price" label="Price" />
+                            <InputField control={form.control} name="discount" label="Discount (%)" placeholder="0" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField control={form.control} name="quantity" label="Quantity" />
+                            <SelectField
+                                control={form.control}
+                                name="gender"
+                                label="Gender"
+                                options={[
+                                    { label: 'Men', value: 'Men' },
+                                    { label: 'Women', value: 'Women' },
+                                    { label: 'Unisex', value: 'Unisex' },
+                                    { label: 'Kids', value: 'Kids' },
+                                ]}
+                            />
                         </div>
                         <ImageInput fieldId="image" state={image} setState={setImage} allowCreateImage>
                             Upload Image

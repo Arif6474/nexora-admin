@@ -8,6 +8,7 @@ export const SUBCATEGORY_API = PROTECTED_INSTANCE_ROUTE + 'subcategory';
 export const PRODUCT_API = PROTECTED_INSTANCE_ROUTE + 'product';
 export const PRODUCT_COLOR_API = PROTECTED_INSTANCE_ROUTE + 'productColor';
 export const PRODUCT_SIZE_API = PROTECTED_INSTANCE_ROUTE + 'productSize';
+export const PRODUCT_IMAGE_API = PROTECTED_INSTANCE_ROUTE + 'productImage';
 export const COLOR_API = PROTECTED_INSTANCE_ROUTE + 'color';
 export const SIZE_API = PROTECTED_INSTANCE_ROUTE + 'size';
 

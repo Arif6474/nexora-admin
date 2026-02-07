@@ -11,7 +11,9 @@ export default function ViewProduct({ targetID }) {
     return (
         <div className="pt-4 max-h-[75vh] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-6">
             <TitleDescription title="Product Title" description={product?.title} />
+            <TitleDescription title="Gender" description={product?.gender} />
             <TitleDescription title="Price" description={`$${product?.price}`} />
+            <TitleDescription title="Discount" description={`${product?.discount || 0}%`} />
             <TitleDescription title="Quantity" description={product?.quantity} />
             {product?.image && <Image imgLink={product.image} imgAlt={product.title} />}
         </div>

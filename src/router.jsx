@@ -58,6 +58,12 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: 'product-images/:productId',
+        lazy: async () => ({
+          Component: (await import('@/pages/productImages')).default,
+        }),
+      },
+      {
         path: 'categories',
         lazy: async () => ({
           Component: (await import('@/pages/categories')).default,

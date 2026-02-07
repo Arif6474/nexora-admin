@@ -18,6 +18,17 @@ export const productFormSchema = z.object({
         .string()
         .min(0, { message: 'Quantity cannot be negative' }),
 
+    gender: z
+        .enum(['Men', 'Women', 'Unisex', 'Kids'], {
+            errorMap: () => ({ message: "Please select a valid gender category" }),
+        })
+        .default('Unisex'),
+
+    discount: z
+        .string()
+        .optional()
+        .default('0'),
+
     subCategory: z
         .string()
         .optional(),

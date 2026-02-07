@@ -44,7 +44,7 @@ function ProductSizes() {
     const columns = [
         createColumn({ accessorKey: 'product.title', title: 'Product' }),
         createColumn({ accessorKey: 'size.size', title: 'Size' }),
-        createColumn({ accessorKey: 'serial', title: 'serial' }),
+        createColumn({ accessorKey: 'quantity', title: 'Quantity' }),
     ];
 
     return (

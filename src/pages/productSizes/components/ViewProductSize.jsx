@@ -13,7 +13,7 @@ export default function ViewProductSize({ targetID }) {
                 title="Master Size"
                 description={productSize?.size?.size ? `${productSize.size.size} (${productSize.size.gender})` : 'N/A'}
             />
-            <TitleDescription title="Serial" description={productSize?.serial} />
+            <TitleDescription title="Quantity" description={productSize?.quantity} />
             <TitleDescription title="Product" description={productSize?.product?.title || 'N/A'} />
         </div>
     );

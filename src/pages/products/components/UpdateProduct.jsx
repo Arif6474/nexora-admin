@@ -13,6 +13,7 @@ import { useGetCategoriesQuery } from "../../../redux/features/categories/catego
 import { useGetSubcategoriesQuery } from "../../../redux/features/subcategories/subcategoryApi";
 import SearchSelectField from "../../../components/ui/searchableSelect";
 import { RichTextInput } from "../../../components/custom/RichTextInput";
+import SelectField from "@/components/custom/SelectField";
 
 export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) {
 
@@ -50,6 +51,8 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
             category: category || "",
             subCategory: subCategory || "",
             isFeatured: product?.isFeatured || false,
+            gender: product?.gender || 'Unisex',
+            discount: product?.discount?.toString() || '0',
         }
     });
 
@@ -62,6 +65,8 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
                 price: product.price.toString(),
                 quantity: product.quantity.toString(),
                 isFeatured: product.isFeatured,
+                gender: product.gender,
+                discount: product.discount?.toString() || '0',
             });
             setImage(product.image);
             setCategory(product.category?._id || "");
@@ -84,6 +89,8 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
         formData.append("price", data.price);
         formData.append("quantity", data.quantity);
         formData.append("category", category);
+        formData.append("gender", data.gender);
+        formData.append("discount", data.discount);
         if (subCategory) formData.append("subCategory", subCategory);
         if (image && typeof image !== "string") formData.append("image", image);
 
@@ -149,7 +156,21 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
                         />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField control={form.control} name="price" label="Price" />
+                            <InputField control={form.control} name="discount" label="Discount (%)" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField control={form.control} name="quantity" label="Quantity" />
+                            <SelectField
+                                control={form.control}
+                                name="gender"
+                                label="Gender"
+                                options={[
+                                    { label: 'Men', value: 'Men' },
+                                    { label: 'Women', value: 'Women' },
+                                    { label: 'Unisex', value: 'Unisex' },
+                                    { label: 'Kids', value: 'Kids' },
+                                ]}
+                            />
                         </div>
                         <ImageInput fieldId="image" state={image} setState={setImage} allowUpdateImage>
                             Upload Image

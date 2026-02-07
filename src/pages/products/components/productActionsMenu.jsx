@@ -1,5 +1,5 @@
 import { DataTableRowActions } from "@/components/layout/CRUD/dataTable/dataTableRowActions";
-import { IconArchive, IconClothesRack, IconEdit, IconEye, IconFileOrientation, IconPalette } from "@tabler/icons-react";
+import { IconArchive, IconClothesRack, IconEdit, IconEye, IconFileOrientation, IconPhoto } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
 function ProductActionsMenu({ row, setTargetID, setShowArchiveModal, setShowItem, setShowUpdateForm }) {
@@ -45,6 +45,13 @@ function ProductActionsMenu({ row, setTargetID, setShowArchiveModal, setShowItem
                 navigate(`/product-sizes/${product._id}`)
             },
             icon: IconClothesRack,
+        },
+        {
+            label: 'Product Images',
+            onClick: () => {
+                navigate(`/product-images/${product._id}`)
+            },
+            icon: IconPhoto,
         },
 
     ];

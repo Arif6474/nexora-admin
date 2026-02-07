@@ -23,7 +23,7 @@ export default function UpdateProductSize({ setShowUpdateForm, refetch, targetID
     resolver: zodResolver(productSizeFormSchema),
     defaultValues: {
       size: "",
-      serial: '0',
+      quantity: "0",
     },
   });
 
@@ -31,7 +31,7 @@ export default function UpdateProductSize({ setShowUpdateForm, refetch, targetID
     if (productSize) {
       form.reset({
         size: productSize?.size?._id || productSize?.size || "",
-        serial: productSize?.serial?.toString() || "0",
+        quantity: productSize?.quantity?.toString() || "0",
       });
     }
   }, [productSize, form]);
@@ -73,7 +73,7 @@ export default function UpdateProductSize({ setShowUpdateForm, refetch, targetID
             options={sizeOptions}
             placeholder="Choose a master size"
           />
-          <InputField control={form.control} name="serial" label="Serial" placeholder="Enter serial number" />
+          <InputField control={form.control} name="quantity" label="Quantity" placeholder="Enter quantity" />
           <Button className="mt-2" loading={isSubmitting}>
             Update Product Size
           </Button>
