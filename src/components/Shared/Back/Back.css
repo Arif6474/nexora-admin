@@ -1,0 +1,10 @@
+.screen_header svg{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+  }
+
+  .screen_header svg:hover{
+    color:var(--second-color) ;
+  }

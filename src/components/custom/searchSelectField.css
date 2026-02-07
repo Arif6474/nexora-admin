@@ -1,0 +1,30 @@
+.css-t3ipsp-control,
+.css-13cymwt-control{
+    border-radius: 5px !important;
+    background-color: var(--background) !important;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--gray-4) !important;
+    /* border-color: hsl(var(--input)); */
+    margin-bottom: 1.5rem;
+    border: none !important;
+    width: 100%;
+    height: 30px;
+}
+.css-1dimb5e-singleValue{
+    color: var(--gray-4) !important;
+}
+.css-13cymwt-control:focus{
+    outline: none  !important;
+    /* outline-offset: 2px; */
+}
+.css-1nmdiq5-menu{
+    background-color: var(--background) !important;
+    color: white !important;
+    z-index: 999999 !important;
+    display: block !important;
+}
+.css-13cymwt-control:focus-visible{
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
