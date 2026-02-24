@@ -47,6 +47,12 @@ export const sidelinks = [
         icon: <IconHexagonNumber2 size={18} />,
       },
       {
+        title: 'Brands',
+        label: '',
+        href: '/brands',
+        icon: <IconHexagonNumber2 size={18} />,
+      },
+      {
         title: 'Colors',
         label: '',
         href: '/colors',

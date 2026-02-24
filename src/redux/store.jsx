@@ -3,6 +3,8 @@ import authReducer from './features/auth/authSlice';
 import { authApi } from './features/auth/authApi';
 import { categoryApi } from './features/categories/categoryApi';
 import categoryReducer from './features/categories/categorySlice';
+import { brandApi } from './features/brands/brandApi';
+import brandReducer from './features/brands/brandSlice';
 import { productApi } from './features/products/productApi';
 import productReducer from './features/products/productSlice';
 import { productColorApi } from './features/productColors/productColorApi';
@@ -22,6 +24,8 @@ const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
+    brand: brandReducer,
+    [brandApi.reducerPath]: brandApi.reducer,
     product: productReducer,
     [productApi.reducerPath]: productApi.reducer,
     productColor: productColorReducer,
@@ -40,6 +44,7 @@ const store = configureStore({
     getDefaultMiddleware().concat(
       authApi.middleware,
       categoryApi.middleware,
+      brandApi.middleware,
       productApi.middleware,
       productColorApi.middleware,
       productSizeApi.middleware,

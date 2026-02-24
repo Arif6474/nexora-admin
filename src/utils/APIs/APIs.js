@@ -4,6 +4,7 @@ export const PUBLIC_INSTANCE_ROUTE = BASE_URL + 'api/employeeApp/public/';
 export const PROTECTED_INSTANCE_ROUTE = BASE_URL + 'api/employeeApp/protected/';
 
 export const CATEGORY_API = PROTECTED_INSTANCE_ROUTE + 'category';
+export const BRAND_API = PROTECTED_INSTANCE_ROUTE + 'brand';
 export const SUBCATEGORY_API = PROTECTED_INSTANCE_ROUTE + 'subcategory';
 export const PRODUCT_API = PROTECTED_INSTANCE_ROUTE + 'product';
 export const PRODUCT_COLOR_API = PROTECTED_INSTANCE_ROUTE + 'productColor';
