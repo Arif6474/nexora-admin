@@ -49,7 +49,7 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
             price: product?.price || "",
             quantity: product?.quantity || "",
             category: category || "",
-            subCategory: subCategory || "",
+            subcategory: subCategory || "",
             isFeatured: product?.isFeatured || false,
             gender: product?.gender || 'Unisex',
             discount: product?.discount?.toString() || '0',
@@ -70,7 +70,7 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
             });
             setImage(product.image);
             setCategory(product.category?._id || "");
-            setSubCategory(product.subCategory?._id || product.subCategory || "");
+            setSubCategory(product.subcategory?._id || product.subcategory || "");
         }
     }, [product, form]);
 
@@ -91,7 +91,7 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
         formData.append("category", category);
         formData.append("gender", data.gender);
         formData.append("discount", data.discount);
-        if (subCategory) formData.append("subCategory", subCategory);
+        if (subCategory) formData.append("subcategory", subCategory);
         if (image && typeof image !== "string") formData.append("image", image);
 
         const result = await updateProduct({ id: targetID, updatedData: formData });

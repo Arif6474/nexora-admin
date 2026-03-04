@@ -73,7 +73,7 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
         formData.append("category", category);
         formData.append("gender", data.gender);
         formData.append("discount", data.discount);
-        if (subCategory) formData.append("subCategory", subCategory);
+        if (subCategory) formData.append("subcategory", subCategory);
         if (image) formData.append("image", image);
 
         const result = await createProduct(formData);
