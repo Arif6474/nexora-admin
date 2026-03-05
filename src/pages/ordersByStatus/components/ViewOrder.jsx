@@ -25,8 +25,8 @@ export default function ViewOrder({ targetID }) {
                 </div>
                 {singleOrder?.products.map((item) => (
                     <div key={item._id} className="grid grid-cols-5 gap-4 py-4 border-b-[.5px] border-muted-foreground/50">
-                        <p className="text-muted-foreground pt-2">{item.item.title}</p>
-                        {item?.item.image && <Image imgLink={item.item.image} imgAlt={item.item.title} className='w-12' />}
+                        <p className="text-muted-foreground pt-2">{item.product?.title}</p>
+                        {item?.product?.image && <Image imgLink={item.product.image} imgAlt={item.product.title} className='w-12' />}
                         <p className="text-muted-foreground pt-2">{item.unitPrice}</p>
                         <p className="text-muted-foreground pt-2">{item.quantity}</p>
                         <p className="text-muted-foreground pt-2 text-right max-w-[80px]">{item.totalPrice}</p>
@@ -58,22 +58,21 @@ export default function ViewOrder({ targetID }) {
 
                 <TitleDescription title="Order ID" description={singleOrder?.orderId} />
                 <TitleDescription title="Total Amount" description={singleOrder?.totalAmount} />
-                <TitleDescription title="Customer Name" description={singleOrder?.customer.name} />
-                <TitleDescription title="Phone" description={singleOrder?.customer.phone} />
+                <TitleDescription title="Customer Name" description={singleOrder?.customer?.name} />
+                <TitleDescription title="Phone" description={singleOrder?.customer?.phone} />
                 <TitleDescription title="Shipping Details:" className="mt-4" />
                 <TitleDescription title="" />
-                <TitleDescription title="Recipient Name" description={singleOrder?.shippingDetails.recipientName} />
-                <TitleDescription title="Phone" description={singleOrder?.shippingDetails.phone} />
-                <TitleDescription title="email" description={singleOrder?.shippingDetails.email} />
-                <TitleDescription title="Address" description={singleOrder?.shippingDetails.address} />
-                <TitleDescription title="City" description={singleOrder?.shippingDetails.city} />
-                <TitleDescription title="Area" description={singleOrder?.shippingDetails.area} />
+                <TitleDescription title="Recipient Name" description={singleOrder?.shippingDetails?.recipientName} />
+                <TitleDescription title="Phone" description={singleOrder?.shippingDetails?.phone} />
+                <TitleDescription title="Email" description={singleOrder?.shippingDetails?.email} />
+                <TitleDescription title="Address" description={singleOrder?.shippingDetails?.address} />
+                <TitleDescription title="City" description={singleOrder?.shippingDetails?.city} />
+                <TitleDescription title="Area" description={singleOrder?.shippingDetails?.area} />
                 <TitleDescription title="Order Status" description={singleOrder?.orderStatus} />
                 <TitleDescription title="Payment Method" description={singleOrder?.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online Payment'} />
-                <TitleDescription title="Date" description={new Date(singleOrder?.createdAt).toLocaleDateString()} />
+                <TitleDescription title="Date" description={singleOrder?.createdAt ? new Date(singleOrder.createdAt).toLocaleDateString() : 'N/A'} />
 
             </div>
         </div>
     );
 }
-

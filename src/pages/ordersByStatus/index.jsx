@@ -83,7 +83,7 @@ function OrdersByStatus() {
             </ScreenWrapper>
             <ArchiveItem
                 api={'orders/archiveOrder/'}
-                singleItemApi={'orders/getSingleOrder/'}
+                singleItemApi={'order/'}
                 targetID={targetID}
                 setShowArchiveModal={setShowArchiveModal}
                 showArchiveModal={showArchiveModal}
