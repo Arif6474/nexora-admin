@@ -1,7 +1,7 @@
 import { Layout } from "@/components/custom/layout"
 import HeaderControls from "@/components/Shared/HeaderControls"
 import { useGetDashboardStatsQuery } from "../../redux/features/dashboard/dashboardApi"
-import { IconCurrencyDollar, IconClock, IconPackage, IconUsers, IconTrendingUp } from "@tabler/icons-react"
+import { IconCurrencyDollar, IconClock, IconShoppingCart, IconPackage, IconUsers, IconTrendingUp } from "@tabler/icons-react"
 import Loader from "../../components/Shared/loader/loader"
 
 function Dashboad() {
@@ -21,7 +21,7 @@ function Dashboad() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
           <StatCard
             title="Total Sales"
             value={`$${stats?.totalSales?.toLocaleString() || 0}`}
@@ -35,6 +35,13 @@ function Dashboad() {
             icon={IconClock}
             description="Orders awaiting processing"
             color="bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400"
+          />
+          <StatCard
+            title="Delivered Orders"
+            value={stats?.totalDeliveredOrders || 0}
+            icon={IconShoppingCart}
+            description="Orders awaiting processing"
+            color="bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
           />
           <StatCard
             title="Active Products"
@@ -114,7 +121,7 @@ function Dashboad() {
 
 function StatCard({ title, value, icon: Icon, description, color }) {
   return (
-    <div className="bg-white dark:bg-stone-900/50 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm transition-all hover:shadow-md hover:border-stone-300 dark:hover:border-stone-700 group">
+    <div className="bg-white dark:bg-stone-900/50 p-4 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm transition-all hover:shadow-md hover:border-stone-300 dark:hover:border-stone-700 group">
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3 rounded-xl ${color} transition-transform group-hover:scale-110`}>
           <Icon className="w-6 h-6" />
