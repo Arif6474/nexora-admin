@@ -17,6 +17,7 @@ import { subcategoryApi } from './features/subcategories/subcategoryApi';
 import { colorApi } from './features/colors/colorApi';
 import { sizeApi } from './features/sizes/sizeApi';
 import { productImageApi } from './features/productImages/productImageApi';
+import { dashboardApi } from './features/dashboard/dashboardApi';
 
 const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ const store = configureStore({
     [colorApi.reducerPath]: colorApi.reducer,
     [sizeApi.reducerPath]: sizeApi.reducer,
     [productImageApi.reducerPath]: productImageApi.reducer,
+    [dashboardApi.reducerPath]: dashboardApi.reducer,
 
   },
   middleware: (getDefaultMiddleware) =>
@@ -53,6 +55,7 @@ const store = configureStore({
       colorApi.middleware,
       sizeApi.middleware,
       productImageApi.middleware,
+      dashboardApi.middleware,
 
     ),
 });
