@@ -41,10 +41,16 @@ export const orderApi = createApi({
                 body: updatedData,
             }),
         }),
+        getOrderCountByStatus: builder.query({
+            query: () => ({
+                url: '/count/status',
+            }),
+        }),
     }),
 });
 export const {
     useGetOrdersQuery,
     useGetSingleOrderQuery,
     useUpdateOrderStatusByIdMutation,
+    useGetOrderCountByStatusQuery,
 } = orderApi;
