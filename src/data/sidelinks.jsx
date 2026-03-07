@@ -16,6 +16,7 @@ import {
   IconShoppingCart,
   IconPalette,
   IconRuler2,
+  IconChartBar
 } from '@tabler/icons-react';
 
 export const sidelinks = [
@@ -74,4 +75,10 @@ export const sidelinks = [
     icon: <IconShoppingCart size={18} />,
   },
 
+  {
+    title: 'Reports',
+    label: '',
+    href: '/reports',
+    icon: <IconChartBar size={18} />,
+  },
 ];

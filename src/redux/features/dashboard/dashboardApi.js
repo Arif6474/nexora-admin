@@ -20,9 +20,16 @@ export const dashboardApi = createApi({
                 url: '/stats',
             }),
         }),
+        getOrdersReport: builder.query({
+            query: (params) => ({
+                url: '/report',
+                params
+            }),
+        }),
     }),
 });
 
 export const {
     useGetDashboardStatsQuery,
+    useGetOrdersReportQuery,
 } = dashboardApi;
