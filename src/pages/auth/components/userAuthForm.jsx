@@ -87,7 +87,7 @@ export function UserAuthForm({ className, ...props }) {
             />
             <Button variant='gold' className='mt-2 rounded-xl h-11 text-xs uppercase font-extrabold tracking-wider gap-2 shadow-lg' loading={isLoading}>
               <IconShieldCheck className='w-4 h-4' />
-              <span>Sign in to terminal</span>
+              <span>Sign in</span>
               <IconArrowRight className='w-4 h-4' />
             </Button>
           </div>

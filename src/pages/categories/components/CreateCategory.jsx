@@ -75,7 +75,7 @@ export default function CreateCategory({ setShowCreateForm, refetch }) {
                         >
                             Upload Image
                         </ImageInput>
-                        <Button className="mt-2" loading={isLoading}>
+                        <Button className="mt-3 w-full" loading={isLoading}>
                             Create Category
                         </Button>
                     </div>

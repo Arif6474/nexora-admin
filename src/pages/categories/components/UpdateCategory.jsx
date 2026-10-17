@@ -90,7 +90,7 @@ export default function UpdateCategory({ setShowUpdateForm, refetch, targetID })
                     >
                         Upload Image
                     </ImageInput>
-                    <Button className="mt-2" loading={isSubmitting}>
+                    <Button className="mt-3 w-full" loading={isSubmitting}>
                         Update Category
                     </Button>
                 </div>
