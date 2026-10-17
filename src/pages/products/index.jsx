@@ -39,14 +39,20 @@ function Products() {
     const filterData = ['Active', 'Archived'];
 
     useEffect(() => {
+        setQueryParams((prev) => {
+            const next = { ...prev, currentPage: 1 };
+            if (category) {
+                next.category = category;
+            } else {
+                delete next.category;
+            }
+            return next;
+        });
+    }, [category]);
+
+    useEffect(() => {
         refetch();
-        if (category) {
-            setQueryParams((prev) => ({
-                ...prev,
-                category: category
-            }));
-        }
-    }, [filter, refetch, category]);
+    }, [filter, category, search, refetch]);
 
     if (isLoading) return <Loader />
 

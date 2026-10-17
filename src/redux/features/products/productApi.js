@@ -15,15 +15,21 @@ export const productApi = createApi({
     }),
     endpoints: (builder) => ({
         getProducts: builder.query({
-            query: ({ search = '', filter, queryParams }) => ({
-                url: '/getProductWithQuery',
-                params: {
-                    search, filter,
-                    currentPage: queryParams.currentPage,
-                    limit: queryParams.limit,
-                    category: queryParams.category,
-                },
-            }),
+            query: ({ search = '', filter, queryParams }) => {
+                const params = {
+                    search: search || '',
+                    filter,
+                    currentPage: queryParams?.currentPage || 1,
+                    limit: queryParams?.limit || 10,
+                };
+                if (queryParams?.category) {
+                    params.category = queryParams.category;
+                }
+                return {
+                    url: '/getProductWithQuery',
+                    params,
+                };
+            },
         }),
         createProduct: builder.mutation({
             query: (productData) => ({
