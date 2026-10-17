@@ -29,7 +29,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/custom/button';
 import Loader from '../../../components/Shared/loader/loader';
 import toast from 'react-hot-toast';
-import html2pdf from 'html2pdf.js';
+import { jsPDF } from 'jspdf';
 import {
   useGetSingleOrderQuery,
   useUpdateOrderStatusByIdMutation,
@@ -237,119 +237,208 @@ export default function ViewOrder({ targetID, setShowItem, refetch }) {
   };
 
   // Download invoice as PDF
-  const handleDownloadPdf = async () => {
+  const handleDownloadPdf = () => {
     setIsDownloading(true);
     const toastId = toast.loading('Generating PDF invoice...');
     try {
-      const container = document.createElement('div');
-      container.style.position = 'absolute';
-      container.style.left = '-9999px';
-      container.style.top = '0';
-      container.style.width = '750px';
-      container.style.padding = '36px';
-      container.style.backgroundColor = '#ffffff';
-      container.style.color = '#0f172a';
-      container.style.fontFamily =
-        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-      container.style.fontSize = '13px';
-      container.style.lineHeight = '1.5';
+      const doc = new jsPDF('p', 'mm', 'a4');
 
-      container.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 24px;">
-          <div>
-            <h1 style="font-size: 26px; font-weight: 900; margin: 0; color: #0f172a; letter-spacing: -0.5px;">NEXORA</h1>
-            <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">Official Order Invoice & Receipt</p>
-          </div>
-          <div style="text-align: right;">
-            <p style="font-size: 16px; font-weight: 800; margin: 0; color: #d97706;">Order #${orderId}</p>
-            <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">Date: ${formattedDateTime}</p>
-            <div style="margin-top: 6px;">
-              <span style="display: inline-block; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 800; background-color: #fef3c7; color: #b45309; text-transform: uppercase;">
-                ${orderStatus}
-              </span>
-            </div>
-          </div>
-        </div>
+      // Brand & Header
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.setTextColor(15, 23, 42);
+      doc.text('NEXORA', 15, 22);
 
-        <div style="display: flex; justify-content: space-between; margin-bottom: 28px; gap: 32px;">
-          <div style="flex: 1; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
-            <h3 style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 8px 0;">Customer Information</h3>
-            <p style="font-size: 13px; font-weight: 700; margin: 0 0 4px 0; color: #0f172a;">${customerName}</p>
-            <p style="font-size: 12px; color: #64748b; margin: 0 0 3px 0;">Email: <strong style="color: #334155;">${customerEmail}</strong></p>
-            <p style="font-size: 12px; color: #64748b; margin: 0;">Phone: <strong style="color: #334155;">${customerPhone}</strong></p>
-          </div>
-          <div style="flex: 1; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
-            <h3 style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 8px 0;">Shipping Details</h3>
-            <p style="font-size: 13px; font-weight: 700; margin: 0 0 4px 0; color: #0f172a;">${recipientName}</p>
-            <p style="font-size: 12px; color: #64748b; margin: 0 0 3px 0;">${addressLine}</p>
-            <p style="font-size: 12px; color: #64748b; margin: 0 0 3px 0;">${cityLine}, ${areaLine}</p>
-            <p style="font-size: 12px; color: #64748b; margin: 0;">Phone: <strong style="color: #334155;">${recipientPhone}</strong></p>
-          </div>
-        </div>
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Official Order Invoice & Receipt', 15, 28);
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
-          <thead>
-            <tr style="border-bottom: 2px solid #e2e8f0; text-align: left; background: #f8fafc;">
-              <th style="padding: 10px 12px; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase;">Item Description</th>
-              <th style="padding: 10px 12px; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; text-align: center;">Price</th>
-              <th style="padding: 10px 12px; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; text-align: center;">Qty</th>
-              <th style="padding: 10px 12px; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; text-align: right;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${products
-              .map(
-                (p, idx) => `
-              <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 12px 12px;">
-                  <p style="font-weight: 700; font-size: 13px; margin: 0; color: #0f172a;">${p.product?.title || 'Product Item'}</p>
-                  <p style="font-size: 11px; color: #94a3b8; margin: 2px 0 0 0;">${p.product?.sku || `SKU: JEANS-${idx + 100}A`}</p>
-                </td>
-                <td style="padding: 12px 12px; text-align: center; font-weight: 600; color: #334155;">$${p.unitPrice || 0}</td>
-                <td style="padding: 12px 12px; text-align: center; font-weight: 600; color: #334155;">${p.quantity || 1}</td>
-                <td style="padding: 12px 12px; text-align: right; font-weight: 800; color: #0f172a;">$${p.totalPrice || (p.unitPrice * p.quantity) || 0}</td>
-              </tr>
-            `
-              )
-              .join('')}
-          </tbody>
-        </table>
+      // Order ID & Date
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.setTextColor(217, 119, 6);
+      doc.text(`Order #${orderId}`, 195, 20, { align: 'right' });
 
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 32px;">
-          <div style="width: 260px; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; color: #64748b;">
-              <span>Subtotal</span>
-              <span style="font-weight: 700; color: #0f172a;">$${subtotal}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; color: #64748b;">
-              <span>Shipping Rate</span>
-              <span style="font-weight: 700; color: #0f172a;">$${shippingRate}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 8px 0 2px 0; font-size: 15px; font-weight: 900; color: #0f172a; border-top: 2px solid #e2e8f0; margin-top: 6px;">
-              <span>Total Amount</span>
-              <span style="color: #d97706; font-size: 18px;">$${totalAmount}</span>
-            </div>
-          </div>
-        </div>
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Date: ${formattedDateTime}`, 195, 26, { align: 'right' });
 
-        <div style="border-top: 1px solid #e2e8f0; padding-top: 18px; text-align: center; font-size: 11px; color: #94a3b8;">
-          <p style="margin: 0 0 4px 0; font-weight: 600;">Payment Method: <span style="color: #0f172a;">${paymentMethodLabel}</span></p>
-          <p style="margin: 0;">Thank you for shopping with Nexora.</p>
-        </div>
-      `;
-
-      document.body.appendChild(container);
-
-      const opt = {
-        margin: [8, 8, 8, 8],
-        filename: `Invoice_${orderId}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      // Status Badge
+      const statusColors = {
+        Pending: { bg: [254, 243, 199], text: [180, 83, 9] },
+        Processing: { bg: [219, 234, 254], text: [29, 78, 216] },
+        Shipped: { bg: [224, 231, 255], text: [67, 56, 202] },
+        Delivered: { bg: [209, 250, 229], text: [4, 120, 87] },
+        Cancelled: { bg: [255, 228, 230], text: [190, 18, 60] },
+      };
+      const badgeStyle = statusColors[orderStatus] || {
+        bg: [241, 245, 249],
+        text: [71, 85, 105],
       };
 
-      await html2pdf().set(opt).from(container).save();
-      document.body.removeChild(container);
+      doc.setFillColor(...badgeStyle.bg);
+      doc.roundedRect(165, 30, 30, 6, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(...badgeStyle.text);
+      doc.text(String(orderStatus).toUpperCase(), 180, 34.2, { align: 'center' });
+
+      // Divider line
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.4);
+      doc.line(15, 40, 195, 40);
+
+      // Info Boxes
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.2);
+      doc.roundedRect(15, 45, 87, 36, 3, 3, 'FD');
+      doc.roundedRect(108, 45, 87, 36, 3, 3, 'FD');
+
+      // Customer Info
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text('CUSTOMER INFORMATION', 20, 52);
+
+      doc.setFontSize(9.5);
+      doc.setTextColor(15, 23, 42);
+      const safeCustomerName = doc.splitTextToSize(String(customerName || 'Customer'), 77);
+      doc.text(safeCustomerName, 20, 58);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(71, 85, 105);
+      doc.text(`Email: ${customerEmail || '—'}`, 20, 65);
+      doc.text(`Phone: ${customerPhone || '—'}`, 20, 71);
+
+      // Shipping Details
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text('SHIPPING DETAILS', 113, 52);
+
+      doc.setFontSize(9.5);
+      doc.setTextColor(15, 23, 42);
+      const safeRecipientName = doc.splitTextToSize(String(recipientName || customerName), 77);
+      doc.text(safeRecipientName, 113, 58);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(71, 85, 105);
+      const safeAddress = doc.splitTextToSize(String(addressLine || ''), 77);
+      doc.text(safeAddress, 113, 65);
+      doc.text(`${cityLine || ''}, ${areaLine || ''}`, 113, 71);
+      doc.text(`Phone: ${recipientPhone || '—'}`, 113, 77);
+
+      // Table Header
+      doc.setFillColor(241, 245, 249);
+      doc.roundedRect(15, 87, 180, 8, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(71, 85, 105);
+      doc.text('ITEM DESCRIPTION', 20, 92.2);
+      doc.text('PRICE', 120, 92.2, { align: 'center' });
+      doc.text('QTY', 150, 92.2, { align: 'center' });
+      doc.text('TOTAL', 190, 92.2, { align: 'right' });
+
+      // Rows
+      let curY = 102;
+      products.forEach((p, idx) => {
+        if (curY > 255) {
+          doc.addPage();
+          curY = 20;
+        }
+
+        const title = p.product?.title || 'Product Item';
+        const sku = p.product?.sku || `SKU: ITEM-${idx + 100}`;
+        const price = Number(p.unitPrice) || 0;
+        const qty = Number(p.quantity) || 1;
+        const rowTotal = Number(p.totalPrice) || price * qty;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(15, 23, 42);
+        const titleLines = doc.splitTextToSize(String(title), 92);
+        doc.text(titleLines, 20, curY);
+
+        const titleOffset = titleLines.length * 4;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(148, 163, 184);
+        doc.text(sku, 20, curY + titleOffset);
+
+        doc.setFontSize(8.5);
+        doc.setTextColor(51, 65, 85);
+        doc.text(`$${price}`, 120, curY + 2, { align: 'center' });
+        doc.text(String(qty), 150, curY + 2, { align: 'center' });
+
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(15, 23, 42);
+        doc.text(`$${rowTotal}`, 190, curY + 2, { align: 'right' });
+
+        const rowHeight = titleOffset + 8;
+        doc.setDrawColor(241, 245, 249);
+        doc.setLineWidth(0.3);
+        doc.line(15, curY + rowHeight, 195, curY + rowHeight);
+        curY += rowHeight + 5;
+      });
+
+      // Summary Box
+      if (curY > 240) {
+        doc.addPage();
+        curY = 20;
+      }
+      const summaryY = curY + 3;
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.2);
+      doc.roundedRect(118, summaryY, 77, 26, 3, 3, 'FD');
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Subtotal:', 124, summaryY + 6);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(15, 23, 42);
+      doc.text(`$${subtotal}`, 190, summaryY + 6, { align: 'right' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(100, 116, 139);
+      doc.text('Shipping Rate:', 124, summaryY + 12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(15, 23, 42);
+      doc.text(`$${shippingRate}`, 190, summaryY + 12, { align: 'right' });
+
+      doc.setDrawColor(226, 232, 240);
+      doc.line(124, summaryY + 16, 190, summaryY + 16);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      doc.setTextColor(15, 23, 42);
+      doc.text('Total Amount:', 124, summaryY + 22);
+
+      doc.setFontSize(12);
+      doc.setTextColor(217, 119, 6);
+      doc.text(`$${totalAmount}`, 190, summaryY + 22, { align: 'right' });
+
+      // Footer
+      const footerY = summaryY + 36;
+      doc.setDrawColor(241, 245, 249);
+      doc.line(15, footerY, 195, footerY);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Payment Method: ${paymentMethodLabel}`, 105, footerY + 6, { align: 'center' });
+      doc.setFontSize(7.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text('Thank you for shopping with Nexora. For inquiries, contact support@nexora.com', 105, footerY + 11, { align: 'center' });
+
+      doc.save(`Invoice_${orderId}.pdf`);
       toast.success('Invoice PDF downloaded!', { id: toastId });
     } catch (err) {
       console.error('PDF error:', err);
