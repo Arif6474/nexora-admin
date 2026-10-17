@@ -20,13 +20,16 @@ function ShowCrudModal({
         <>
             {showItem && (
                 <Modal
-                    maxWidth={maxWidth.view}
+                    maxWidth={maxWidth.view || (modalHeading === 'Order' ? 1080 : 600)}
                     modalHeading={`View ${modalHeading}`}
+                    hideHeader={modalHeading === 'Order'}
                     setShowModalContent={setShowItem}
                     isOpen={showItem}
                 >
                     <ViewItem
                         targetID={targetID}
+                        setShowItem={setShowItem}
+                        refetch={refetch}
                     />
                 </Modal>
             )}

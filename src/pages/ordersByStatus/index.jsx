@@ -104,7 +104,7 @@ function OrdersByStatus() {
                 setShowUpdateForm={setShowUpdateForm}
                 UpdateItem={UpdateOrderStatus}
                 maxWidth={{
-                    view: 1000,
+                    view: 1080,
                 }}
             />
         </Layout>

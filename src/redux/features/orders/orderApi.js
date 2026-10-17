@@ -13,15 +13,14 @@ export const orderApi = createApi({
             return headers;
         },
     }),
-
+    tagTypes: ['Orders', 'Order', 'OrderCount'],
     endpoints: (builder) => ({
-
-
         // Fetch a single order by ID
         getSingleOrder: builder.query({
             query: ({ id }) => ({
                 url: `/${id}`,
             }),
+            providesTags: (result, error, { id }) => [{ type: 'Order', id }],
         }),
         getOrders: builder.query({
             query: ({ search = '', filter, queryParams }) => ({
@@ -33,6 +32,7 @@ export const orderApi = createApi({
                     orderStatus: queryParams.orderStatus,
                 },
             }),
+            providesTags: ['Orders'],
         }),
         updateOrderStatusById: builder.mutation({
             query: ({ id, updatedData }) => ({
@@ -40,14 +40,21 @@ export const orderApi = createApi({
                 method: 'PATCH',
                 body: updatedData,
             }),
+            invalidatesTags: (result, error, { id }) => [
+                { type: 'Order', id },
+                'Orders',
+                'OrderCount',
+            ],
         }),
         getOrderCountByStatus: builder.query({
             query: () => ({
                 url: '/count/status',
             }),
+            providesTags: ['OrderCount'],
         }),
     }),
 });
+
 export const {
     useGetOrdersQuery,
     useGetSingleOrderQuery,
