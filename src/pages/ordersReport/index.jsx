@@ -48,14 +48,14 @@ function OrdersReport() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                        <div className="flex bg-stone-100 dark:bg-stone-800 p-1 rounded-xl">
+                        <div className="inline-flex items-center bg-white border border-stone-200 dark:bg-[#12151c] dark:border-[#1f2533] p-1 rounded-full shadow-sm">
                             {['day', 'week', 'month'].map((interval) => (
                                 <button
                                     key={interval}
                                     onClick={() => setGroupBy(interval)}
-                                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-black uppercase tracking-widest transition-all ${groupBy === interval
-                                            ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-sm'
-                                            : 'text-stone-500 hover:text-stone-700 dark:hover:text-stone-300'
+                                    className={`px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all ${groupBy === interval
+                                            ? 'gold-active-gradient text-stone-950 font-bold shadow-sm'
+                                            : 'text-stone-600 hover:text-stone-900 dark:text-zinc-400 dark:hover:text-zinc-200'
                                         }`}
                                 >
                                     {interval}

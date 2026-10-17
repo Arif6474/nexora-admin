@@ -1,34 +1,27 @@
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-
 function Filter({ filter, setFilter, filterData }) {
+    if (!filterData || filterData.length === 0) return null;
 
     return (
-        <Tabs
-            orientation='vertical'
-            defaultValue='active'
-            className='space-y-4'
-            value={filter}
-            onValueChange={(value) =>{
-                setFilter(value)
-            }}
-        >
-            <div className='w-full overflow-x-auto pb-2'>
-                <TabsList>
-                    {filterData.map((item) => (
-                        <TabsTrigger
-                            value={item}
-                            key={item}
-                            className="data-[state=active]:gold-active-gradient data-[state=active]:text-stone-950 data-[state=active]:font-bold data-[state=active]:shadow-sm rounded-md transition-all"
-                        >
-                            {item}
-                        </TabsTrigger>
-                    ))}
-                  
-                </TabsList>
-            </div>
-
-        </Tabs>
-    )
+        <div className="inline-flex items-center bg-white border border-stone-200 dark:bg-[#12151c] dark:border-[#1f2533] p-1 rounded-full shadow-sm">
+            {filterData.map((item) => {
+                const isActive = String(filter || '').toLowerCase() === String(item).toLowerCase();
+                return (
+                    <button
+                        key={item}
+                        type="button"
+                        onClick={() => setFilter(item)}
+                        className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                            isActive
+                                ? 'gold-active-gradient text-stone-950 font-bold shadow-sm'
+                                : 'text-stone-600 hover:text-stone-900 dark:text-zinc-400 dark:hover:text-zinc-200 border border-transparent'
+                        }`}
+                    >
+                        {item}
+                    </button>
+                );
+            })}
+        </div>
+    );
 }
 
-export default Filter
+export default Filter;
