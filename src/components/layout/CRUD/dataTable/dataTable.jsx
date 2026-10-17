@@ -42,7 +42,7 @@ export function DataTable({
                 data?.length > 0 &&
                 <div className='-mx-4  flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0 data-table'>
                     <div className='space-y-4'>
-                        <div className='rounded-md border '>
+                        <div className='rounded-xl border border-stone-200/90 dark:border-[#1e2330] bg-white dark:bg-[#11141b] text-stone-900 dark:text-stone-100 shadow-sm overflow-hidden'>
                             <Table>
                                 <DataTableHeader table={table} />
                                 <DataTableBody

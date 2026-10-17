@@ -13,7 +13,7 @@ const Table = forwardRef(({ className, ...props }, ref) => (
 Table.displayName = 'Table'
 
 const TableHeader = forwardRef(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn('[&_tr]:border-b', className)} {...props} />
+  <thead ref={ref} className={cn('[&_tr]:border-b bg-stone-50/70 dark:bg-stone-900/30', className)} {...props} />
 ))
 TableHeader.displayName = 'TableHeader'
 
@@ -42,7 +42,7 @@ const TableRow = forwardRef(({ className, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+      'border-b border-stone-200/80 dark:border-[#1e2330] transition-colors hover:bg-stone-50/80 dark:hover:bg-muted/50 data-[state=selected]:bg-muted',
       className
     )}
     {...props}
@@ -54,7 +54,7 @@ const TableHead = forwardRef(({ className, ...props }, ref) => (
   <th
     ref={ref}
     className={cn(
-      'h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      'h-10 px-2 text-left align-middle font-semibold text-stone-600 dark:text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
     {...props}

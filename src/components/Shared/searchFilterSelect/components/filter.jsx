@@ -15,7 +15,11 @@ function Filter({ filter, setFilter, filterData }) {
             <div className='w-full overflow-x-auto pb-2'>
                 <TabsList>
                     {filterData.map((item) => (
-                        <TabsTrigger value={item} key={item}>
+                        <TabsTrigger
+                            value={item}
+                            key={item}
+                            className="data-[state=active]:gold-active-gradient data-[state=active]:text-stone-950 data-[state=active]:font-bold data-[state=active]:shadow-sm rounded-md transition-all"
+                        >
                             {item}
                         </TabsTrigger>
                     ))}

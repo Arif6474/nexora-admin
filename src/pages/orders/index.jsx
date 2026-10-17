@@ -17,18 +17,14 @@ function Orders() {
     const orderCounts = countsData?.orderCounts || {};
 
     return (
-        <div className='p-8 space-y-10'>
+        <div className='p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8'>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-stone-900 dark:text-stone-100 mb-2">Orders Overview</h1>
-                    <p className="text-stone-500 font-medium">Manage and track your business fulfillment cycle.</p>
-                </div>
-                <div className="p-3 bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm">
-                    <IconLayoutDashboard className="w-6 h-6 text-stone-400" />
+                    <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-stone-900 dark:text-stone-100 mb-1 sm:mb-2">Orders Overview</h1>
                 </div>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8'>
                 <Stats status='Pending' Icon={IconShoppingCartHeart} count={orderCounts['Pending'] || 0} loading={isLoading} />
                 <Stats status='Processing' Icon={IconRepeat} count={orderCounts['Processing'] || 0} loading={isLoading} />
                 <Stats status='Shipped' Icon={IconTruckDelivery} count={orderCounts['Shipped'] || 0} loading={isLoading} />
@@ -52,17 +48,17 @@ function Stats({ Icon, status, count, loading }) {
             onClick={() => {
                 navigate(`/ordersByStatus/${status}`)
             }}
-            className={`group relative overflow-hidden cursor-pointer flex flex-col items-center justify-center gap-6 rounded-[2.5rem] p-12 transition-all duration-500 hover:scale-[1.03] active:scale-95 border shadow-sm ${colorClasses.container}`}>
+            className={`group relative overflow-hidden cursor-pointer flex flex-col items-center justify-center gap-4 sm:gap-6 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 transition-all duration-500 hover:scale-[1.03] active:scale-95 border shadow-sm ${colorClasses.container}`}>
 
             {/* Background Glow */}
             <div className={`absolute -right-4 -top-4 w-24 h-24 rounded-full blur-3xl opacity-20 transition-opacity group-hover:opacity-40 ${colorClasses.glow}`} />
 
-            <div className={`relative p-5 rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 ${colorClasses.iconBg}`}>
-                <Icon className={`h-10 w-10 ${colorClasses.icon}`} />
+            <div className={`relative p-3.5 sm:p-5 rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 ${colorClasses.iconBg}`}>
+                <Icon className={`h-8 w-8 sm:h-10 sm:w-10 ${colorClasses.icon}`} />
             </div>
 
             <div className='relative flex flex-col items-center text-center'>
-                <span className={`text-5xl font-black tracking-tighter mb-2 transition-colors duration-500 ${colorClasses.text}`}>
+                <span className={`text-4xl sm:text-5xl font-black tracking-tighter mb-1.5 sm:mb-2 transition-colors duration-500 ${colorClasses.text}`}>
                     {loading ? "..." : count}
                 </span>
                 <div className="flex items-center gap-2">

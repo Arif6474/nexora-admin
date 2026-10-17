@@ -80,9 +80,9 @@ export default function CreateSize({ setShowCreateForm, refetch }) {
                         label="Serial (for sorting)"
                         placeholder="0"
                     />
-                    <div className="bg-stone-900/50 p-4 rounded-xl border border-stone-800">
+                    <div className="bg-stone-100 dark:bg-stone-900/50 p-4 rounded-xl border border-stone-200 dark:border-stone-800">
                         <p className="text-xs text-stone-500 font-black uppercase mb-2">Technical Note</p>
-                        <p className="text-xs text-stone-400">Detailed size charts and measurements can be updated after creation in the Edit menu.</p>
+                        <p className="text-xs text-stone-600 dark:text-stone-400">Detailed size charts and measurements can be updated after creation in the Edit menu.</p>
                     </div>
                     <Button className="mt-2" loading={isLoading}>
                         Create Size

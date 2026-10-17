@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/passwordInput'
 import { cn } from '@/lib/utils'
+import { IconShieldCheck, IconArrowRight } from '@tabler/icons-react'
 import { useLoginMutation } from '../../../redux/features/auth/authApi'
 import { useSelector } from 'react-redux'
 import { selectEmployee } from '../../../redux/features/auth/authSelectors'
@@ -84,8 +85,10 @@ export function UserAuthForm({ className, ...props }) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2' loading={isLoading}>
-              Login
+            <Button variant='gold' className='mt-2 rounded-xl h-11 text-xs uppercase font-extrabold tracking-wider gap-2 shadow-lg' loading={isLoading}>
+              <IconShieldCheck className='w-4 h-4' />
+              <span>Sign in to terminal</span>
+              <IconArrowRight className='w-4 h-4' />
             </Button>
           </div>
         </form>

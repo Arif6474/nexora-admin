@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { Button, buttonVariants } from './custom/button';
 import {
   Collapsible,
@@ -56,12 +56,12 @@ export default function Nav({
     <div
       data-collapsed={isCollapsed}
       className={cn(
-        'group border-b bg-background py-2 transition-[max-height,padding] duration-500 data-[collapsed=true]:py-2 md:border-none',
+        'group bg-transparent py-2 transition-[max-height,padding] duration-500 data-[collapsed=true]:py-2',
         className
       )}
     >
       <TooltipProvider delayDuration={0}>
-        <nav className='grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2'>
+        <nav className='grid gap-1.5 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2'>
           {links.map(renderLink)}
         </nav>
       </TooltipProvider>
@@ -78,65 +78,67 @@ function NavLink({
   subLink = false,
 }) {
   const { checkActiveNav } = useCheckActiveNav();
+  const isActive = checkActiveNav(href);
   return (
     <Link
       to={href}
       onClick={closeNav}
       className={cn(
-        buttonVariants({
-          variant: checkActiveNav(href) ? 'secondary' : 'ghost',
-          size: 'sm',
-        }),
-        'h-12 justify-start text-wrap rounded-none px-6',
-        subLink && 'h-10 w-full border-l border-l-slate-500 px-2'
+        'relative flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-300 group mx-2 overflow-hidden',
+        isActive
+          ? 'gold-active-gradient text-stone-950 font-bold shadow-lg shadow-amber-500/25'
+          : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/[0.04] border border-transparent',
+        subLink && 'py-2 px-3 text-xs mx-0'
       )}
-      aria-current={checkActiveNav(href) ? 'page' : undefined}
+      aria-current={isActive ? 'page' : undefined}
     >
-      <div className='mr-2'>{icon}</div>
-      {title}
-      {label && (
-        <div className='ml-2 rounded-lg bg-primary px-1 text-[.625rem] text-primary-foreground'>
-          {label}
-        </div>
+      {/* Top glossy reflection sheen */}
+      {isActive && (
+        <span className='absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/35 via-white/10 to-transparent pointer-events-none rounded-t-xl' />
       )}
+      <div className='relative z-10 flex items-center gap-3'>
+        <span className={cn('transition-colors', isActive ? 'text-stone-950' : 'text-stone-500 group-hover:text-stone-900 dark:text-zinc-400 dark:group-hover:text-zinc-200')}>
+          {icon}
+        </span>
+        <span className={isActive ? 'text-stone-950 font-extrabold tracking-tight' : ''}>{title}</span>
+      </div>
     </Link>
   );
 }
 
 function NavLinkDropdown({ title, icon, label, sub, closeNav }) {
   const { checkActiveNav } = useCheckActiveNav();
-
-  /* Open collapsible by default
-   * if one of child elements is active */
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href));
 
   return (
     <Collapsible defaultOpen={isChildActive}>
       <CollapsibleTrigger
         className={cn(
-          buttonVariants({ variant: 'ghost', size: 'sm' }),
-          'group h-12 w-full justify-start rounded-none px-6'
+          'flex w-[calc(100%-1rem)] items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 group mx-2 border border-transparent hover:bg-stone-100 dark:hover:bg-white/[0.04]',
+          isChildActive
+            ? 'text-stone-900 dark:text-white font-semibold'
+            : 'text-stone-600 hover:text-stone-900 dark:text-zinc-400 dark:hover:text-white'
         )}
       >
-        <div className='mr-2'>{icon}</div>
-        {title}
-        {label && (
-          <div className='ml-2 rounded-lg bg-primary px-1 text-[.625rem] text-primary-foreground'>
-            {label}
-          </div>
-        )}
+        <div className='flex items-center gap-3'>
+          <span className={cn('transition-colors', isChildActive ? 'text-amber-500 dark:text-amber-400' : 'text-stone-500 group-hover:text-stone-900 dark:text-zinc-400 dark:group-hover:text-zinc-200')}>
+            {icon}
+          </span>
+          <span>{title}</span>
+        </div>
         <span
           className={cn(
-            'ml-auto transition-all group-data-[state="open"]:-rotate-180'
+            'ml-auto text-stone-400 dark:text-zinc-400 transition-all duration-200 group-data-[state="open"]:-rotate-180',
+            isChildActive && 'text-stone-700 dark:text-zinc-300'
           )}
         >
-          <IconChevronDown stroke={1} />
+          <IconChevronDown size={16} />
         </span>
       </CollapsibleTrigger>
       <CollapsibleContent className='collapsibleDropdown' asChild>
-        <ul>
+        <ul className='my-1 ml-6 space-y-1 border-l border-stone-200 dark:border-zinc-800/80 pl-2'>
           {sub?.map((sublink) => (
-            <li key={sublink.title} className='my-1 ml-8'>
+            <li key={sublink.title}>
               <NavLink {...sublink} subLink closeNav={closeNav} />
             </li>
           ))}
@@ -148,20 +150,25 @@ function NavLinkDropdown({ title, icon, label, sub, closeNav }) {
 
 function NavLinkIcon({ title, icon, label, href }) {
   const { checkActiveNav } = useCheckActiveNav();
+  const isActive = checkActiveNav(href);
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
         <Link
           to={href}
           className={cn(
-            buttonVariants({
-              variant: checkActiveNav(href) ? 'secondary' : 'ghost',
-              size: 'icon',
-            }),
-            'h-12 w-12'
+            'relative flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 overflow-hidden',
+            isActive
+              ? 'gold-active-gradient text-stone-950 shadow-md shadow-amber-500/30'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/[0.04]'
           )}
         >
-          {icon}
+          {isActive && (
+            <span className='absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/35 to-transparent pointer-events-none rounded-t-xl' />
+          )}
+          <span className={cn('relative z-10', isActive ? 'text-stone-950' : '')}>
+            {icon}
+          </span>
           <span className='sr-only'>{title}</span>
         </Link>
       </TooltipTrigger>
@@ -177,9 +184,6 @@ function NavLinkIcon({ title, icon, label, href }) {
 
 function NavLinkIconDropdown({ title, icon, label, sub }) {
   const { checkActiveNav } = useCheckActiveNav();
-
-  /* Open collapsible by default
-   * if one of child elements is active */
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href));
 
   return (
@@ -187,13 +191,17 @@ function NavLinkIconDropdown({ title, icon, label, sub }) {
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant={isChildActive ? 'secondary' : 'ghost'}
-              size='icon'
-              className='h-12 w-12'
+            <button
+              type='button'
+              className={cn(
+                'relative flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200 outline-none overflow-hidden',
+                isChildActive
+                  ? 'bg-stone-100 text-stone-900 dark:bg-white/10 dark:text-white'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/[0.04]'
+              )}
             >
-              {icon}
-            </Button>
+              <span>{icon}</span>
+            </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <TooltipContent side='right' className='flex items-center gap-4'>
@@ -212,17 +220,25 @@ function NavLinkIconDropdown({ title, icon, label, sub }) {
           {title} {label ? `(${label})` : ''}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {sub?.map(({ title, icon, label, href }) => (
-          <DropdownMenuItem key={`${title}-${href}`} asChild>
-            <Link
-              to={href}
-              className={`${checkActiveNav(href) ? 'bg-secondary' : ''}`}
-            >
-              {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>
-              {label && <span className='ml-auto text-xs'>{label}</span>}
-            </Link>
-          </DropdownMenuItem>
-        ))}
+        {sub?.map(({ title, icon, label, href }) => {
+          const isSubActive = checkActiveNav(href);
+          return (
+            <DropdownMenuItem key={`${title}-${href}`} asChild>
+              <Link
+                to={href}
+                className={cn(
+                  'flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs transition-colors',
+                  isSubActive
+                    ? 'gold-active-gradient text-stone-950 font-bold'
+                    : 'hover:bg-stone-100 dark:hover:bg-white/5'
+                )}
+              >
+                {icon} <span className='max-w-52 text-wrap'>{title}</span>
+                {label && <span className='ml-auto text-xs'>{label}</span>}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

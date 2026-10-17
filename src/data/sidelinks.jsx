@@ -1,22 +1,14 @@
 import {
-  IconBarrierBlock,
-  IconError404,
-  IconExclamationCircle,
-  IconHexagonNumber1,
-  IconHexagonNumber2,
-  IconHexagonNumber3,
-  IconHexagonNumber4,
-  IconHexagonNumber5,
-  IconLayoutDashboard,
-  IconServerOff,
+  IconHome,
+  IconPackage,
   IconSettings,
-  IconUserShield,
-  IconUsers,
-  IconLock,
   IconShoppingCart,
+  IconUsers,
+  IconChartBar,
+  IconCategory,
   IconPalette,
   IconRuler2,
-  IconChartBar
+  IconTags
 } from '@tabler/icons-react';
 
 export const sidelinks = [
@@ -24,34 +16,31 @@ export const sidelinks = [
     title: 'Dashboard',
     label: '',
     href: '/',
-    icon: <IconLayoutDashboard size={18} />,
+    icon: <IconHome size={19} />,
   },
   {
     title: 'Products',
     label: '',
     href: '/products',
-    icon: <IconLayoutDashboard size={18} />,
+    icon: <IconPackage size={19} />,
   },
-
-
   {
     title: 'Product Settings',
     label: '',
     href: '',
-    icon: <IconHexagonNumber1 size={18} />,
+    icon: <IconSettings size={19} />,
     sub: [
-
       {
         title: 'Categories',
         label: '',
         href: '/categories',
-        icon: <IconHexagonNumber2 size={18} />,
+        icon: <IconCategory size={18} />,
       },
       {
         title: 'Brands',
         label: '',
         href: '/brands',
-        icon: <IconHexagonNumber2 size={18} />,
+        icon: <IconTags size={18} />,
       },
       {
         title: 'Colors',
@@ -65,20 +54,25 @@ export const sidelinks = [
         href: '/sizes',
         icon: <IconRuler2 size={18} />,
       },
-
     ],
   },
   {
     title: 'Orders',
     label: '',
     href: '/orders',
-    icon: <IconShoppingCart size={18} />,
+    icon: <IconShoppingCart size={19} />,
   },
-
+  {
+    title: 'Customers',
+    label: '',
+    href: '/customers',
+    icon: <IconUsers size={19} />,
+  },
   {
     title: 'Reports',
     label: '',
     href: '/reports',
-    icon: <IconChartBar size={18} />,
+    icon: <IconChartBar size={19} />,
   },
 ];
+

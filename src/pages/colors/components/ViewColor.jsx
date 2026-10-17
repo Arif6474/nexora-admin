@@ -10,24 +10,24 @@ export default function ViewColor({ targetID }) {
         <div className="space-y-4 py-4">
             <div className="flex items-center gap-4">
                 <div
-                    className="w-16 h-16 rounded-xl border border-stone-800"
+                    className="w-16 h-16 rounded-xl border border-stone-200 dark:border-stone-800"
                     style={{ backgroundColor: color?.hexCode }}
                 />
                 <div>
-                    <h3 className="text-lg font-bold text-white">{color?.name}</h3>
-                    <p className="text-sm text-stone-400 font-mono uppercase">{color?.hexCode}</p>
+                    <h3 className="text-lg font-bold text-stone-900 dark:text-white">{color?.name}</h3>
+                    <p className="text-sm text-stone-500 dark:text-stone-400 font-mono uppercase">{color?.hexCode}</p>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-800">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-200 dark:border-stone-800">
                 <div>
                     <p className="text-xs text-stone-500 uppercase font-black tracking-widest">Status</p>
-                    <p className={`text-sm font-bold ${color?.isActive ? 'text-emerald-400' : 'text-red-400'}`}>
+                    <p className={`text-sm font-bold ${color?.isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
                         {color?.isActive ? 'Active' : 'Archived'}
                     </p>
                 </div>
                 <div>
                     <p className="text-xs text-stone-500 uppercase font-black tracking-widest">Created At</p>
-                    <p className="text-sm text-stone-300">
+                    <p className="text-sm text-stone-700 dark:text-stone-300">
                         {new Date(color?.createdAt).toLocaleDateString()}
                     </p>
                 </div>
