@@ -5,7 +5,6 @@ import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
 import Loader from '../../components/Shared/loader/loader';
-import SearchFilterSelect from '../../components/Shared/searchFilterSelect/searchFilterSelect';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '../../components/Shared/ArchiveItem/ArchiveItem';
@@ -57,12 +56,11 @@ function OrdersByStatus() {
                     btnText="Orders"
                     isCreate={false}
                     isBack
-
-                />
-                <SearchFilterSelect
+                    isSearch={true}
+                    search={search}
                     setSearch={setSearch}
+                    searchPlaceholder="Search orders..."
                     isFilter={false}
-                    refetch={refetch}
                 />
                 <DataTable
                     data={documents}

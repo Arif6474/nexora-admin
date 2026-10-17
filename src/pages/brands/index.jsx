@@ -3,7 +3,6 @@ import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
 import Loader from '../../components/Shared/loader/loader';
-import SearchFilterSelect from '../../components/Shared/searchFilterSelect/searchFilterSelect';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '../../components/Shared/ArchiveItem/ArchiveItem';
@@ -53,13 +52,14 @@ function Brands() {
                     btnText="Create Brand"
                     isCreate
                     isBack
-                />
-                <SearchFilterSelect
+                    isSearch={true}
+                    search={search}
                     setSearch={setSearch}
+                    searchPlaceholder="Search brands..."
+                    isFilter={true}
                     filter={filter}
                     setFilter={setFilter}
                     filterData={filterData}
-                    refetch={refetch}
                 />
                 <DataTable
                     data={documents}

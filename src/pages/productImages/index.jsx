@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Layout } from '@/components/custom/layout';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
-import SearchFilterSelect from '@/components/Shared/searchFilterSelect/searchFilterSelect';
 import { DataTable } from '../../components/layout/CRUD/dataTable/dataTable';
 import Loader from '../../components/Shared/loader/loader';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
@@ -59,11 +58,14 @@ export default function ProductImages() {
                     btnText="Add Product Image"
                     isCreate
                     isBack
-                />
-                <SearchFilterSelect
-                    filterData={filterData}
-                    setFilter={setFilter}
+                    isSearch={true}
+                    search={search}
                     setSearch={setSearch}
+                    searchPlaceholder="Search product images..."
+                    isFilter={true}
+                    filter={filter}
+                    setFilter={setFilter}
+                    filterData={filterData}
                 />
                 <DataTable
                     columns={columns}
