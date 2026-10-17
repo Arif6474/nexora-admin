@@ -50,7 +50,8 @@ export default function HeaderSearchFilter({
     (filterData?.length > 0 &&
       String(filter).toLowerCase() === String(filterData[0]).toLowerCase());
   const hasCategoryFilter = Boolean(selectData?.value);
-  const hasActiveFilters = !isDefaultFilter || hasCategoryFilter;
+  const hasSearchFilter = Boolean(search);
+  const hasActiveFilters = !isDefaultFilter || hasCategoryFilter || hasSearchFilter;
 
   const handleResetFilters = () => {
     if (filterData?.length > 0 && setFilter) {
@@ -58,6 +59,9 @@ export default function HeaderSearchFilter({
     }
     if (selectData?.setState) {
       selectData.setState('');
+    }
+    if (setSearch) {
+      setSearch('');
     }
   };
 
