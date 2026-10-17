@@ -128,11 +128,12 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
                                 optionLabel="name"
                                 optionValue="_id"
                                 options={categories}
-                                placeholder="Select Category"
+                                placeholder="Search or select a category..."
                                 setState={(selectedCategory) => {
                                     setCategory(selectedCategory);
                                     setSubCategory("");
                                 }}
+                                required
                             />
                             <SearchSelectField
                                 label="Subcategory"
@@ -140,7 +141,7 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
                                 optionLabel="name"
                                 optionValue="_id"
                                 options={subcategories}
-                                placeholder="Select Subcategory"
+                                placeholder={category ? "Search or select a subcategory..." : "Select category first..."}
                                 setState={setSubCategory}
                                 disabled={!category}
                             />

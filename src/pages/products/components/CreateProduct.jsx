@@ -104,8 +104,9 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
                                 optionLabel="name"
                                 optionValue="_id"
                                 options={categories}
-                                placeholder="Select Category"
+                                placeholder="Search or select a category..."
                                 setState={setCategory}
+                                required
                             />
                             <SearchSelectField
                                 label="Subcategory"
@@ -113,7 +114,7 @@ export default function CreateProduct({ setShowCreateForm, refetch }) {
                                 optionLabel="name"
                                 optionValue="_id"
                                 options={subcategories}
-                                placeholder="Select Subcategory"
+                                placeholder={category ? "Search or select a subcategory..." : "Select category first..."}
                                 setState={setSubCategory}
                                 disabled={!category}
                             />
