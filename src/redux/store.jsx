@@ -20,6 +20,8 @@ import { productImageApi } from './features/productImages/productImageApi';
 import { dashboardApi } from './features/dashboard/dashboardApi';
 import { testimonialApi } from './features/testimonials/testimonialApi';
 import testimonialReducer from './features/testimonials/testimonialSlice';
+import { customerApi } from './features/customers/customerApi';
+import customerReducer from './features/customers/customerSlice';
 
 const store = configureStore({
   reducer: {
@@ -44,6 +46,8 @@ const store = configureStore({
     [dashboardApi.reducerPath]: dashboardApi.reducer,
     testimonial: testimonialReducer,
     [testimonialApi.reducerPath]: testimonialApi.reducer,
+    customer: customerReducer,
+    [customerApi.reducerPath]: customerApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -60,6 +64,7 @@ const store = configureStore({
       productImageApi.middleware,
       dashboardApi.middleware,
       testimonialApi.middleware,
+      customerApi.middleware,
     ),
 });
 

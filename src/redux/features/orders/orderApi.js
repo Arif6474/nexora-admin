@@ -26,10 +26,12 @@ export const orderApi = createApi({
             query: ({ search = '', filter, queryParams }) => ({
                 url: '/',
                 params: {
-                    search, filter,
-                    currentPage: queryParams.currentPage,
-                    limit: queryParams.limit,
-                    orderStatus: queryParams.orderStatus,
+                    search,
+                    filter,
+                    currentPage: queryParams?.currentPage,
+                    limit: queryParams?.limit,
+                    orderStatus: queryParams?.orderStatus,
+                    customerId: queryParams?.customerId,
                 },
             }),
             providesTags: ['Orders'],

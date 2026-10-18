@@ -21,3 +21,6 @@ export const PROMO_CODE_API = PROTECTED_INSTANCE_ROUTE + 'promoCode';
 
 // Testimonials
 export const TESTIMONIAL_API = PROTECTED_INSTANCE_ROUTE + 'testimonial';
+
+// Customers
+export const CUSTOMER_API = PROTECTED_INSTANCE_ROUTE + 'customer';
