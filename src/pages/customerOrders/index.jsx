@@ -14,6 +14,7 @@ import ViewOrder from '@/pages/ordersByStatus/components/ViewOrder';
 import UpdateOrderStatus from '@/pages/ordersByStatus/components/UpdateOrderStatus';
 import { useGetOrdersQuery } from '@/redux/features/orders/orderApi';
 import { useSingleCustomerQuery } from '@/redux/features/customers/customerApi';
+import Back from '@/components/Shared/Back/Back';
 import {
     IconMail,
     IconPhone,
@@ -24,7 +25,8 @@ import {
     IconCash,
     IconCopy,
     IconCheck,
-    IconUser
+    IconUser,
+    IconSearch
 } from '@tabler/icons-react';
 import toast from 'react-hot-toast';
 
@@ -240,7 +242,8 @@ export default function CustomerOrders() {
             <ScreenWrapper>
                 {/* Customer Info Card Banner */}
                 <div className="mb-6 p-5 rounded-2xl bg-white dark:bg-[#11141b] border border-stone-200/90 dark:border-[#1e2330] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3.5">
+                        <Back />
                         {avatarSrc ? (
                             <img
                                 src={avatarSrc}
@@ -310,38 +313,39 @@ export default function CustomerOrders() {
                     </div>
                 </div>
 
-                {/* Status Tabs Navigation */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-4 scrollbar-none">
-                    {statusTabs.map((status) => {
-                        const isSelected = statusFilter === status;
-                        return (
-                            <button
-                                key={status}
-                                type="button"
-                                onClick={() => setStatusFilter(status)}
-                                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                                    isSelected
-                                        ? 'bg-amber-500 text-stone-900 shadow-sm'
-                                        : 'bg-white dark:bg-[#11141b] text-stone-600 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white border border-stone-200/80 dark:border-[#1e2330]'
-                                }`}
-                            >
-                                {status}
-                            </button>
-                        );
-                    })}
-                </div>
+                {/* Status Tabs Navigation & Search */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                        {statusTabs.map((status) => {
+                            const isSelected = statusFilter === status;
+                            return (
+                                <button
+                                    key={status}
+                                    type="button"
+                                    onClick={() => setStatusFilter(status)}
+                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                                        isSelected
+                                            ? 'bg-amber-500 text-stone-900 shadow-sm'
+                                            : 'bg-white dark:bg-[#11141b] text-stone-600 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white border border-stone-200/80 dark:border-[#1e2330]'
+                                    }`}
+                                >
+                                    {status}
+                                </button>
+                            );
+                        })}
+                    </div>
 
-                {/* Screen Header */}
-                {/* <ScreenHeader
-                    title={`${customer?.name ? `${customer.name}'s Orders` : 'Customer Orders'}`}
-                    isCreate={false}
-                    isBack={true}
-                    isSearch={true}
-                    search={search}
-                    setSearch={setSearch}
-                    searchPlaceholder="Search by order ID..."
-                    isFilter={false}
-                /> */}
+                    <div className="relative w-full sm:w-64 flex-shrink-0">
+                        <IconSearch size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search by order ID..."
+                            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-[#11141b] border border-stone-200/90 dark:border-[#1e2330] rounded-xl text-stone-900 dark:text-white placeholder:text-stone-400 focus:outline-none focus:border-amber-500/50 shadow-xs"
+                        />
+                    </div>
+                </div>
 
                 {/* Orders Data Table */}
                 {ordersLoading ? (
