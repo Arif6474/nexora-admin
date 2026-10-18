@@ -18,6 +18,8 @@ import { colorApi } from './features/colors/colorApi';
 import { sizeApi } from './features/sizes/sizeApi';
 import { productImageApi } from './features/productImages/productImageApi';
 import { dashboardApi } from './features/dashboard/dashboardApi';
+import { testimonialApi } from './features/testimonials/testimonialApi';
+import testimonialReducer from './features/testimonials/testimonialSlice';
 
 const store = configureStore({
   reducer: {
@@ -40,7 +42,8 @@ const store = configureStore({
     [sizeApi.reducerPath]: sizeApi.reducer,
     [productImageApi.reducerPath]: productImageApi.reducer,
     [dashboardApi.reducerPath]: dashboardApi.reducer,
-
+    testimonial: testimonialReducer,
+    [testimonialApi.reducerPath]: testimonialApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -56,7 +59,7 @@ const store = configureStore({
       sizeApi.middleware,
       productImageApi.middleware,
       dashboardApi.middleware,
-
+      testimonialApi.middleware,
     ),
 });
 

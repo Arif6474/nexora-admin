@@ -22,7 +22,7 @@ function ScreenHeader({
     selectData,
 }) {
     return (
-        <div className='mb-4 flex items-center justify-between space-y-2 top-2 sticky z-30'>
+        <div className='mb-4 flex items-center justify-between space-y-2 top-2  z-30'>
             <div className="flex items-center space-x-2">
                 {isBack && <Back />}
                 {isTitle && <ItemsTitle title={title} />}

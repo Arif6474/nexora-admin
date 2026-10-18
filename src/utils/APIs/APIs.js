@@ -19,6 +19,5 @@ export const ORDERS_API = PROTECTED_INSTANCE_ROUTE + 'order';
 // Promo Code
 export const PROMO_CODE_API = PROTECTED_INSTANCE_ROUTE + 'promoCode';
 
-
-
-
+// Testimonials
+export const TESTIMONIAL_API = PROTECTED_INSTANCE_ROUTE + 'testimonial';

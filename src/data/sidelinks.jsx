@@ -8,7 +8,8 @@ import {
   IconCategory,
   IconPalette,
   IconRuler2,
-  IconTags
+  IconTags,
+  IconQuote
 } from '@tabler/icons-react';
 
 export const sidelinks = [
@@ -67,6 +68,12 @@ export const sidelinks = [
     label: '',
     href: '/customers',
     icon: <IconUsers size={19} />,
+  },
+  {
+    title: 'Testimonials',
+    label: '',
+    href: '/testimonials',
+    icon: <IconQuote size={19} />,
   },
   {
     title: 'Reports',

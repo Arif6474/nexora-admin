@@ -22,7 +22,7 @@ function Products() {
 
     const [category, setCategory] = useState("");
 
-    const [queryParams, setQueryParams] = useState({ currentPage: 1, limit: 10 });
+    const [queryParams, setQueryParams] = useState({ currentPage: 1, limit: 15 });
     const {
         showCreateForm, setShowCreateForm,
         showUpdateForm, setShowUpdateForm,

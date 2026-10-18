@@ -106,6 +106,12 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: 'testimonials',
+        lazy: async () => ({
+          Component: (await import('@/pages/testimonials')).default,
+        }),
+      },
+      {
         path: 'ordersByStatus/:orderStatus',
         lazy: async () => ({
           Component: (await import('@/pages/ordersByStatus')).default,
