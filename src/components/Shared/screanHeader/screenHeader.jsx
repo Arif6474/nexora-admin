@@ -22,12 +22,12 @@ function ScreenHeader({
     selectData,
 }) {
     return (
-        <div className='mb-4 flex items-center justify-between space-y-2 top-2  z-30'>
-            <div className="flex items-center space-x-2">
+        <div className='mb-4 flex items-center justify-between gap-3 top-2 z-30'>
+            <div className="flex items-center space-x-2 min-w-0">
                 {isBack && <Back />}
                 {isTitle && <ItemsTitle title={title} />}
             </div>
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
                 {(isSearch || isFilter) && (
                     <HeaderSearchFilter
                         title={title}
