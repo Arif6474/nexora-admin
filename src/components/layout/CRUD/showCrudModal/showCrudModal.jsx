@@ -35,7 +35,7 @@ function ShowCrudModal({
             )}
             {showCreateForm && (
                 <Modal
-                    maxWidth={600}
+                    maxWidth={maxWidth.create || (modalHeading === 'Order' ? 1080 : 600)}
                     modalHeading={`Create ${modalHeading}`}
                     setShowModalContent={setShowCreateForm}
                     isOpen={showCreateForm}
@@ -51,7 +51,7 @@ function ShowCrudModal({
 
             {showUpdateForm && (
                 <Modal
-                    maxWidth={600}
+                    maxWidth={maxWidth.update || (modalHeading === 'Order' ? 1080 : 600)}
                     modalHeading={`Update ${modalHeading}`}
                     setShowModalContent={setShowUpdateForm}
                     isOpen={showUpdateForm}

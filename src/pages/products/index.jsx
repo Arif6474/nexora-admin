@@ -134,6 +134,11 @@ function Products() {
                 showUpdateForm={showUpdateForm}
                 setShowUpdateForm={setShowUpdateForm}
                 UpdateItem={UpdateProduct}
+                maxWidth={{
+                    view: 600,
+                    create: 800,
+                    update: 800,
+                }}
             />
         </Layout>
     );
