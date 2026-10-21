@@ -18,6 +18,7 @@ import {
   IconArrowRight
 } from "@tabler/icons-react"
 import Loader from "../../components/Shared/loader/loader"
+import DashboardSkeleton from "./components/DashboardSkeleton"
 
 const DEFAULT_SALES_POINTS = [
   { date: 'Oct 10', label: 'Oct 10, 2026', value: 250, x: 80, y: 154 },
@@ -72,7 +73,7 @@ export default function Dashboard() {
   const [isChartDropdownOpen, setIsChartDropdownOpen] = useState(false)
   const [activePointIndex, setActivePointIndex] = useState(DEFAULT_SALES_POINTS.length - 1)
 
-  if (isLoading) return <Loader height="70dvh" />
+  if (isLoading) return <DashboardSkeleton />
 
   const { stats, topSellingProducts: backendTopProducts } = data || {}
 

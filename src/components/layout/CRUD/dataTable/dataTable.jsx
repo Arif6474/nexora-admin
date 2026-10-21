@@ -13,14 +13,19 @@ import DataTableHeader from './dataTableHeader'
 import { DataTablePagination } from './dataTablePagination'
 import DataTableBody from './dataTableBody'
 import NotFound from '@/components/Shared/NotFound/NotFound'
+import TableSkeleton from '@/components/Shared/TableSkeleton/TableSkeleton'
 
 export function DataTable({
-    columns, data, filter,
+    columns, data = [], filter,
     setTargetID, setShowArchiveModal, setShowModal, setShowItem, setShowUpdateForm,
     ItemActionsMenu, isLoading
 
 }) {
-   if (data.length === 0) return <NotFound />
+    if (isLoading) {
+        return <TableSkeleton columns={columns} rows={8} showPagination={false} />
+    }
+
+    if (!data || data.length === 0) return <NotFound />
 
     const [sorting, setSorting] = useState([])
 

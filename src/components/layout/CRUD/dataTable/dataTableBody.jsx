@@ -4,6 +4,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { flexRender } from '@tanstack/react-table'
+import { Skeleton } from '@/components/ui/skeleton'
 
 function DataTableBody({
     table, columns, filter,
@@ -20,16 +21,14 @@ function DataTableBody({
             {isLoading ? (
                 // Skeleton loader (5 rows)
                 Array.from({ length: skeletonRows }).map((_, index) => (
-                    <TableRow key={index} className="animate-pulse">
+                    <TableRow key={index} className="transition-colors">
                         {columns.map((_, colIndex) => (
-                            <TableCell key={colIndex} className="p-2">
-                                {/* Skeleton cell */}
-                                <div className="w-full h-6 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                            <TableCell key={colIndex} className="p-4">
+                                <Skeleton className="w-full h-5 rounded-md" />
                             </TableCell>
                         ))}
-                        {/* Skeleton for actions column */}
-                        <TableCell className="p-2">
-                            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+                        <TableCell className="p-4 text-right">
+                            <Skeleton className="w-7 h-7 rounded-lg ml-auto" />
                         </TableCell>
                     </TableRow>
                 ))
