@@ -3,7 +3,6 @@ import { Layout } from '@/components/custom/layout';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import { DataTable } from '../../components/layout/CRUD/dataTable/dataTable';
-import Loader from '../../components/Shared/loader/loader';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import { createColumn } from '../../components/layout/CRUD/dataTable/createColumn';
@@ -41,8 +40,6 @@ export default function ProductImages() {
         refetch();
     }, [filter, refetch]);
 
-    if (isLoading) return <Loader />;
-
     const columns = [
         createColumn({ accessorKey: 'product.title', title: 'Product' }),
         createColumn({ accessorKey: 'image', customCell: 'Image', image: true }),
@@ -70,6 +67,7 @@ export default function ProductImages() {
                 <DataTable
                     columns={columns}
                     data={documents}
+                    isLoading={isLoading}
                     ItemActionsMenu={(props) => (
                         <ProductImageActionsMenu
                             {...props}
@@ -80,12 +78,14 @@ export default function ProductImages() {
                         />
                     )}
                 />
-                <Pagination
-                    totalPages={totalPages}
-                    totalItems={totalItems}
-                    queryParams={queryParams}
-                    setQueryParams={setQueryParams}
-                />
+                {!isLoading && (
+                    <Pagination
+                        totalPages={totalPages}
+                        totalItems={totalItems}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                    />
+                )}
             </ScreenWrapper>
 
             <ShowCrudModal

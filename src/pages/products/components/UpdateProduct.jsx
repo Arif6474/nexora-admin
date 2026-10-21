@@ -7,7 +7,7 @@ import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
 import { ImageInput } from "@/components/custom/ImageInput/ImageInput";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "../../../components/Shared/FormSkeleton/FormSkeleton";
 import { Form } from "@/components/ui/form";
 import { useGetCategoriesQuery } from "../../../redux/features/categories/categoryApi";
 import { useGetSubcategoriesQuery } from "../../../redux/features/subcategories/subcategoryApi";
@@ -111,7 +111,7 @@ export default function UpdateProduct({ setShowUpdateForm, refetch, targetID }) 
     };
 
     if (productLoading) {
-        return <Loader height="30dvh" />;
+        return <FormSkeleton fields={5} />;
     }
 
     return (

@@ -6,7 +6,7 @@ import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField"; // Reuse the InputField component
 import { ImageInput } from "@/components/custom/ImageInput/ImageInput";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { useSingleCategoryQuery, useUpdateCategoryMutation } from "../../../redux/features/categories/categoryApi";
 import { Form } from '@/components/ui/form';
 
@@ -60,7 +60,7 @@ export default function UpdateCategory({ setShowUpdateForm, refetch, targetID })
     };
 
     if (categoryLoading) {
-        return <Loader height="30dvh" />;
+        return <FormSkeleton fields={2} />;
     }
 
     return (

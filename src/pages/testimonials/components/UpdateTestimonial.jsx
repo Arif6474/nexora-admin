@@ -7,7 +7,7 @@ import InputField from "@/components/custom/inputField";
 import SelectField from "@/components/custom/SelectField";
 import { ImageInput } from "@/components/custom/ImageInput/ImageInput";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { useSingleTestimonialQuery, useUpdateTestimonialMutation } from "../../../redux/features/testimonials/testimonialApi";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 
@@ -84,7 +84,7 @@ export default function UpdateTestimonial({ setShowUpdateForm, refetch, targetID
     };
 
     if (testimonialLoading) {
-        return <Loader height="30dvh" />;
+        return <FormSkeleton fields={4} />;
     }
 
     return (

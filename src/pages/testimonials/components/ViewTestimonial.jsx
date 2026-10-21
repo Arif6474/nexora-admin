@@ -1,4 +1,4 @@
-import Loader from "../../../components/Shared/loader/loader";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSingleTestimonialQuery } from "../../../redux/features/testimonials/testimonialApi";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import { IconStar } from "@tabler/icons-react";
@@ -6,7 +6,23 @@ import { IconStar } from "@tabler/icons-react";
 export default function ViewTestimonial({ targetID }) {
     const { data: testimonial, isLoading } = useSingleTestimonialQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) {
+        return (
+            <div className="pt-4 max-h-[75vh] overflow-auto space-y-6">
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-stone-50 dark:bg-[#121620] border border-stone-200/80 dark:border-[#1e2330]">
+                    <Skeleton className="w-16 h-16 rounded-2xl flex-shrink-0" />
+                    <div className="space-y-2 flex-1">
+                        <Skeleton className="h-5 w-32 rounded-lg" />
+                        <Skeleton className="h-4 w-44 rounded-md opacity-70" />
+                    </div>
+                </div>
+                <div className="space-y-3">
+                    <Skeleton className="h-4 w-28 rounded-md opacity-70" />
+                    <Skeleton className="h-20 w-full rounded-2xl" />
+                </div>
+            </div>
+        );
+    }
 
     const avatarSrc = testimonial?.image?.startsWith('http')
         ? testimonial.image

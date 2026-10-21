@@ -1,5 +1,5 @@
 
-import Loader from "../../../components/Shared/loader/loader";
+import DetailsSkeleton from "@/components/Shared/DetailsSkeleton/DetailsSkeleton";
 import { Image } from "../../../components/Shared/Image/Image";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import { useSingleCategoryQuery } from "../../../redux/features/categories/categoryApi";
@@ -7,7 +7,7 @@ import { useSingleCategoryQuery } from "../../../redux/features/categories/categ
 export default function ViewCategory({ targetID }) {
     const { data: category, isLoading } = useSingleCategoryQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) return <DetailsSkeleton count={2} hasImage={true} />;
 
     return (
         <div className="pt-4 max-h-[75vh] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { useSingleCustomerQuery, useUpdateCustomerMutation } from "../../../redux/features/customers/customerApi";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 
@@ -63,7 +63,7 @@ export default function UpdateCustomer({ setShowUpdateForm, refetch, targetID })
     };
 
     if (customerLoading) {
-        return <Loader height="30dvh" />;
+        return <FormSkeleton fields={4} />;
     }
 
     return (

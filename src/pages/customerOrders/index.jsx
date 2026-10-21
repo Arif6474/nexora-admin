@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
-import Loader from '@/components/Shared/loader/loader';
+import { Skeleton } from '@/components/ui/skeleton';
 import useCommonUtilities from '@/utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '@/components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '@/components/Shared/ArchiveItem/ArchiveItem';
@@ -81,10 +81,7 @@ export default function CustomerOrders() {
         navigator.clipboard.writeText(text);
         setCopiedId(text);
         toast.success('Order ID copied!');
-        setTimeout(() => setCopiedId(null), 2000);
     };
-
-    if (customerLoading) return <Loader />;
 
     const avatarSrc = customer?.image?.startsWith('http')
         ? customer.image
@@ -242,75 +239,94 @@ export default function CustomerOrders() {
             <ScreenWrapper>
                 {/* Customer Info Card Banner */}
                 <div className="mb-6 p-5 rounded-2xl bg-white dark:bg-[#11141b] border border-stone-200/90 dark:border-[#1e2330] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5">
-                    <div className="flex items-center gap-3.5">
-                        <Back />
-                        {avatarSrc ? (
-                            <img
-                                src={avatarSrc}
-                                alt={customer?.name}
-                                className="w-14 h-14 rounded-2xl object-cover border border-stone-200 dark:border-[#222838] shadow-sm flex-shrink-0"
-                            />
-                        ) : (
-                            <div className="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-500 dark:text-amber-400 font-extrabold text-xl flex-shrink-0">
-                                {initial}
+                    {customerLoading ? (
+                        <div className="flex items-center gap-3.5 w-full justify-between">
+                            <div className="flex items-center gap-3.5">
+                                <Back />
+                                <Skeleton className="w-14 h-14 rounded-2xl shrink-0" />
+                                <div className="space-y-2">
+                                    <Skeleton className="h-5 w-40 rounded-md" />
+                                    <Skeleton className="h-3.5 w-60 rounded-md opacity-70" />
+                                </div>
                             </div>
-                        )}
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <h2 className="text-lg font-black text-stone-900 dark:text-white">
-                                    {customer?.name || 'Customer'}
-                                </h2>
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider ${
-                                    customer?.isActive
-                                        ? 'bg-emerald-500/15 text-emerald-500 border-emerald-500/25'
-                                        : 'bg-rose-500/15 text-rose-500 border-rose-500/25'
-                                }`}>
-                                    {customer?.isActive ? 'Active' : 'Archived'}
-                                </span>
-                            </div>
-                            <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-stone-500 dark:text-zinc-400">
-                                {customer?.email && (
-                                    <span className="flex items-center gap-1">
-                                        <IconMail size={13} className="text-stone-400" />
-                                        {customer.email}
-                                    </span>
-                                )}
-                                {customer?.phone && (
-                                    <span className="flex items-center gap-1">
-                                        <IconPhone size={13} className="text-stone-400" />
-                                        {customer.phone}
-                                    </span>
-                                )}
-                                {customer?.address && (
-                                    <span className="flex items-center gap-1">
-                                        <IconMapPin size={13} className="text-stone-400" />
-                                        {customer.address}
-                                    </span>
-                                )}
+                            <div className="hidden md:flex items-center gap-4">
+                                <Skeleton className="h-10 w-24 rounded-xl" />
+                                <Skeleton className="h-10 w-24 rounded-xl" />
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <>
+                            <div className="flex items-center gap-3.5">
+                                <Back />
+                                {avatarSrc ? (
+                                    <img
+                                        src={avatarSrc}
+                                        alt={customer?.name}
+                                        className="w-14 h-14 rounded-2xl object-cover border border-stone-200 dark:border-[#222838] shadow-sm flex-shrink-0"
+                                    />
+                                ) : (
+                                    <div className="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-500 dark:text-amber-400 font-extrabold text-xl flex-shrink-0">
+                                        {initial}
+                                    </div>
+                                )}
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h2 className="text-lg font-black text-stone-900 dark:text-white">
+                                            {customer?.name || 'Customer'}
+                                        </h2>
+                                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider ${
+                                            customer?.isActive
+                                                ? 'bg-emerald-500/15 text-emerald-500 border-emerald-500/25'
+                                                : 'bg-rose-500/15 text-rose-500 border-rose-500/25'
+                                        }`}>
+                                            {customer?.isActive ? 'Active' : 'Archived'}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-stone-500 dark:text-zinc-400">
+                                        {customer?.email && (
+                                            <span className="flex items-center gap-1">
+                                                <IconMail size={13} className="text-stone-400" />
+                                                {customer.email}
+                                            </span>
+                                        )}
+                                        {customer?.phone && (
+                                            <span className="flex items-center gap-1">
+                                                <IconPhone size={13} className="text-stone-400" />
+                                                {customer.phone}
+                                            </span>
+                                        )}
+                                        {customer?.address && (
+                                            <span className="flex items-center gap-1">
+                                                <IconMapPin size={13} className="text-stone-400" />
+                                                {customer.address}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
 
-                    {/* Customer Metrics */}
-                    <div className="flex items-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 border-stone-200 dark:border-[#1e2330]">
-                        <div className="text-right sm:text-left md:text-right">
-                            <span className="text-[11px] font-semibold text-stone-400 dark:text-zinc-500 uppercase tracking-wider block">
-                                Total Orders
-                            </span>
-                            <span className="text-xl font-black text-stone-900 dark:text-white">
-                                {customer?.orderCount || totalItems}
-                            </span>
-                        </div>
-                        <div className="h-8 w-px bg-stone-200 dark:bg-[#1e2330]" />
-                        <div className="text-right sm:text-left md:text-right">
-                            <span className="text-[11px] font-semibold text-stone-400 dark:text-zinc-500 uppercase tracking-wider block">
-                                Lifetime Spend
-                            </span>
-                            <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">
-                                ${Number(customer?.totalSpent || 0).toLocaleString()}
-                            </span>
-                        </div>
-                    </div>
+                            {/* Customer Metrics */}
+                            <div className="flex items-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 border-stone-200 dark:border-[#1e2330]">
+                                <div className="text-right sm:text-left md:text-right">
+                                    <span className="text-[11px] font-semibold text-stone-400 dark:text-zinc-500 uppercase tracking-wider block">
+                                        Total Orders
+                                    </span>
+                                    <span className="text-xl font-black text-stone-900 dark:text-white">
+                                        {customer?.orderCount || totalItems}
+                                    </span>
+                                </div>
+                                <div className="h-8 w-px bg-stone-200 dark:bg-[#1e2330]" />
+                                <div className="text-right sm:text-left md:text-right">
+                                    <span className="text-[11px] font-semibold text-stone-400 dark:text-zinc-500 uppercase tracking-wider block">
+                                        Lifetime Spend
+                                    </span>
+                                    <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">
+                                        ${Number(customer?.totalSpent || 0).toLocaleString()}
+                                    </span>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 {/* Status Tabs Navigation & Search */}
@@ -348,28 +364,27 @@ export default function CustomerOrders() {
                 </div>
 
                 {/* Orders Data Table */}
-                {ordersLoading ? (
-                    <Loader height="30dvh" />
-                ) : (
-                    <DataTable
-                        data={documents}
-                        columns={columns}
-                        setTargetID={setTargetID}
-                        setShowArchiveModal={setShowArchiveModal}
-                        setShowUpdateForm={setShowUpdateForm}
-                        setShowItem={setShowItem}
-                        ItemActionsMenu={OrderActionsMenu}
-                    />
-                )}
+                <DataTable
+                    data={documents}
+                    columns={columns}
+                    setTargetID={setTargetID}
+                    setShowArchiveModal={setShowArchiveModal}
+                    setShowUpdateForm={setShowUpdateForm}
+                    setShowItem={setShowItem}
+                    ItemActionsMenu={OrderActionsMenu}
+                    isLoading={ordersLoading || customerLoading}
+                />
 
                 {/* Pagination */}
-                <Pagination
-                    totalPages={totalPages}
-                    items={documents}
-                    totalItems={totalItems}
-                    queryParams={queryParams}
-                    setQueryParams={setQueryParams}
-                />
+                {!ordersLoading && !customerLoading && (
+                    <Pagination
+                        totalPages={totalPages}
+                        items={documents}
+                        totalItems={totalItems}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                    />
+                )}
             </ScreenWrapper>
 
             {/* Archive Order Modal */}

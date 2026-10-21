@@ -1,10 +1,34 @@
-import Loader from "@/components/Shared/loader/loader";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSingleSizeQuery } from "../../../redux/features/sizes/sizeApi";
 
 export default function ViewSize({ targetID }) {
     const { data: size, isLoading } = useSingleSizeQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="20dvh" />;
+    if (isLoading) {
+        return (
+            <div className="space-y-6 py-4">
+                <div className="flex items-center justify-between">
+                    <div className="space-y-2">
+                        <Skeleton className="h-7 w-24 rounded-lg" />
+                        <Skeleton className="h-4 w-36 rounded-md opacity-70" />
+                    </div>
+                    <Skeleton className="h-7 w-20 rounded-full" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200 dark:border-stone-800">
+                    <div className="space-y-3">
+                        <Skeleton className="h-3 w-20 rounded opacity-70" />
+                        <Skeleton className="h-10 w-full rounded-xl" />
+                        <Skeleton className="h-10 w-full rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                        <Skeleton className="h-3 w-20 rounded opacity-70" />
+                        <Skeleton className="h-10 w-full rounded-xl" />
+                        <Skeleton className="h-10 w-full rounded-xl" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6 py-4">

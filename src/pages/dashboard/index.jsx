@@ -17,7 +17,6 @@ import {
   IconDotsVertical,
   IconArrowRight
 } from "@tabler/icons-react"
-import Loader from "../../components/Shared/loader/loader"
 import DashboardSkeleton from "./components/DashboardSkeleton"
 
 const DEFAULT_SALES_POINTS = [

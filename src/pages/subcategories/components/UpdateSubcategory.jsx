@@ -8,7 +8,7 @@ import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
 import { ImageInput } from "@/components/custom/ImageInput/ImageInput";
 import toast from "react-hot-toast";
-import { IconLoader, IconX } from "@tabler/icons-react";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 
 export default function UpdateSubcategory({ setShowUpdateForm, targetID, refetch }) {
     const [updateSubcategory] = useUpdateSubcategoryMutation();
@@ -63,11 +63,7 @@ export default function UpdateSubcategory({ setShowUpdateForm, targetID, refetch
         }
     };
 
-    if (isFetching) return (
-        <div className="h-full w-full max-w-md bg-background p-6 flex items-center justify-center">
-            <IconLoader className="animate-spin" />
-        </div>
-    );
+    if (isFetching) return <FormSkeleton fields={2} />;
 
     return (
         <div>

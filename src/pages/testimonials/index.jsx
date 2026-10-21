@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
-import Loader from '../../components/Shared/loader/loader';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '../../components/Shared/ArchiveItem/ArchiveItem';
@@ -36,7 +35,6 @@ function Testimonials() {
         refetch();
     }, [filter, refetch]);
 
-    if (isLoading) return <Loader />;
 
     const columns = [
         {
@@ -150,14 +148,17 @@ function Testimonials() {
                     setShowUpdateForm={setShowUpdateForm}
                     setShowItem={setShowItem}
                     ItemActionsMenu={TestimonialActionsMenu}
+                    isLoading={isLoading}
                 />
-                <Pagination
-                    totalPages={totalPages}
-                    items={documents}
-                    totalItems={totalItems}
-                    queryParams={queryParams}
-                    setQueryParams={setQueryParams}
-                />
+                {!isLoading && (
+                    <Pagination
+                        totalPages={totalPages}
+                        items={documents}
+                        totalItems={totalItems}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                    />
+                )}
             </ScreenWrapper>
             <ArchiveItem
                 api={'testimonial/archiveTestimonial/'}

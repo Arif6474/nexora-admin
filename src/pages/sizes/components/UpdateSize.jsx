@@ -7,7 +7,7 @@ import { Form } from '@/components/ui/form';
 import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
 import SelectField from "@/components/custom/SelectField";
-import Loader from "@/components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import toast from "react-hot-toast";
 
 export default function UpdateSize({ setShowUpdateForm, refetch, targetID }) {
@@ -54,7 +54,7 @@ export default function UpdateSize({ setShowUpdateForm, refetch, targetID }) {
         setIsSubmitting(false);
     };
 
-    if (sizeLoading) return <Loader height="30dvh" />;
+    if (sizeLoading) return <FormSkeleton fields={4} />;
 
     return (
         <Form {...form}>

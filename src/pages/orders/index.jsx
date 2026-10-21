@@ -10,6 +10,7 @@ import {
     IconLayoutDashboard
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useGetOrderCountByStatusQuery } from '../../redux/features/orders/orderApi';
 
 function Orders() {
@@ -58,9 +59,13 @@ function Stats({ Icon, status, count, loading }) {
             </div>
 
             <div className='relative flex flex-col items-center text-center'>
-                <span className={`text-4xl sm:text-5xl font-black tracking-tighter mb-1.5 sm:mb-2 transition-colors duration-500 ${colorClasses.text}`}>
-                    {loading ? "..." : count}
-                </span>
+                {loading ? (
+                    <Skeleton className="h-10 sm:h-12 w-20 rounded-xl mb-1.5 sm:mb-2" />
+                ) : (
+                    <span className={`text-4xl sm:text-5xl font-black tracking-tighter mb-1.5 sm:mb-2 transition-colors duration-500 ${colorClasses.text}`}>
+                        {count}
+                    </span>
+                )}
                 <div className="flex items-center gap-2">
                     <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${colorClasses.dot}`} />
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] opacity-70 ${colorClasses.text}`}>

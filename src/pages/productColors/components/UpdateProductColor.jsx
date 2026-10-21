@@ -7,7 +7,7 @@ import InputField from "@/components/custom/inputField";
 import SelectField from "@/components/custom/SelectField";
 import { ImageInput } from "@/components/custom/ImageInput/ImageInput";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { useSingleProductColorQuery, useUpdateProductColorMutation } from "../../../redux/features/productColors/productColorApi";
 import { useGetColorsQuery } from "../../../redux/features/colors/colorApi";
 import { Form } from "@/components/ui/form";
@@ -58,7 +58,7 @@ export default function UpdateProductColor({ setShowUpdateForm, refetch, targetI
     };
 
     if (productColorLoading) {
-        return <Loader height="30dvh" />;
+        return <FormSkeleton fields={3} />;
     }
 
     const colorOptions = colors.map(c => ({

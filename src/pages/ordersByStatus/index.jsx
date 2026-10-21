@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
-import Loader from '../../components/Shared/loader/loader';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '../../components/Shared/ArchiveItem/ArchiveItem';
@@ -38,8 +37,6 @@ function OrdersByStatus() {
         refetch();
     }, [filter, refetch]);
 
-    if (isLoading) return <Loader />
-
     const columns = [
         createColumn({ accessorKey: 'orderId', title: 'Order ID' }),
         createColumn({ accessorKey: 'customer.name', title: 'Customer' }),
@@ -70,14 +67,17 @@ function OrdersByStatus() {
                     setShowUpdateForm={setShowUpdateForm}
                     setShowItem={setShowItem}
                     ItemActionsMenu={OrderActionsMenu}
+                    isLoading={isLoading}
                 />
-                <Pagination
-                    totalPages={totalPages}
-                    items={documents}
-                    totalItems={totalItems}
-                    queryParams={queryParams}
-                    setQueryParams={setQueryParams}
-                />
+                {!isLoading && (
+                    <Pagination
+                        totalPages={totalPages}
+                        items={documents}
+                        totalItems={totalItems}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                    />
+                )}
             </ScreenWrapper>
             <ArchiveItem
                 api={'orders/archiveOrder/'}

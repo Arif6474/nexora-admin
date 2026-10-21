@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Layout } from '@/components/custom/layout';
 import ScreenWrapper from '@/components/Shared/screenWrapper';
 import ScreenHeader from '@/components/Shared/screanHeader/screenHeader';
-import Loader from '../../components/Shared/loader/loader';
 import useCommonUtilities from '../../utils/Hooks/useCommonUtilities';
 import ShowCrudModal from '../../components/layout/CRUD/showCrudModal/showCrudModal';
 import ArchiveItem from '../../components/Shared/ArchiveItem/ArchiveItem';
@@ -38,8 +37,6 @@ function ProductSizes() {
         refetch();
     }, [filter, refetch]);
 
-    if (isLoading) return <Loader />;
-
     const columns = [
         createColumn({ accessorKey: 'product.title', title: 'Product' }),
         createColumn({ accessorKey: 'size.size', title: 'Size' }),
@@ -72,14 +69,17 @@ function ProductSizes() {
                     setShowUpdateForm={setShowUpdateForm}
                     setShowItem={setShowItem}
                     ItemActionsMenu={ProductSizeActionsMenu}
+                    isLoading={isLoading}
                 />
-                <Pagination
-                    totalPages={totalPages}
-                    items={documents}
-                    totalItems={totalItems}
-                    queryParams={queryParams}
-                    setQueryParams={setQueryParams}
-                />
+                {!isLoading && (
+                    <Pagination
+                        totalPages={totalPages}
+                        items={documents}
+                        totalItems={totalItems}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                    />
+                )}
             </ScreenWrapper>
             <ArchiveItem
                 api={'productSize/archiveProductSize/'}

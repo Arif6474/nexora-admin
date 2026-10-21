@@ -6,7 +6,7 @@ import { useSingleColorQuery, useUpdateColorMutation } from "../../../redux/feat
 import { Form } from '@/components/ui/form';
 import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
-import Loader from "@/components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import toast from "react-hot-toast";
 
 export default function UpdateColor({ setShowUpdateForm, refetch, targetID }) {
@@ -45,7 +45,7 @@ export default function UpdateColor({ setShowUpdateForm, refetch, targetID }) {
         setIsSubmitting(false);
     };
 
-    if (colorLoading) return <Loader height="30dvh" />;
+    if (colorLoading) return <FormSkeleton fields={2} />;
 
     return (
         <Form {...form}>

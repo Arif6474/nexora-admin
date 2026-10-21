@@ -1,4 +1,4 @@
-import Loader from "../../../components/Shared/loader/loader";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSingleCustomerQuery } from "../../../redux/features/customers/customerApi";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import {
@@ -16,7 +16,43 @@ import { Link } from "react-router-dom";
 export default function ViewCustomer({ targetID }) {
     const { data: customer, isLoading } = useSingleCustomerQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) {
+        return (
+            <div className="pt-2 max-h-[75vh] overflow-y-auto space-y-6 px-1">
+                {/* Customer Profile Header Skeleton */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-stone-50 dark:bg-[#121620] border border-stone-200/80 dark:border-[#1e2330]">
+                    <div className="flex items-center gap-4">
+                        <Skeleton className="w-16 h-16 rounded-2xl flex-shrink-0" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-36 rounded-lg" />
+                            <Skeleton className="h-4 w-48 rounded-md opacity-70" />
+                        </div>
+                    </div>
+                    <Skeleton className="h-9 w-28 rounded-xl" />
+                </div>
+                {/* 3 Metric Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="p-4 rounded-xl border border-stone-200/70 dark:border-[#1e2330] bg-stone-50/50 dark:bg-[#121620]/50 space-y-2">
+                            <Skeleton className="h-3 w-20 rounded opacity-70" />
+                            <Skeleton className="h-6 w-24 rounded-lg" />
+                        </div>
+                    ))}
+                </div>
+                {/* Contact grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-2">
+                        <Skeleton className="h-3.5 w-20 rounded opacity-70" />
+                        <Skeleton className="h-5 w-48 rounded-md" />
+                    </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-3.5 w-20 rounded opacity-70" />
+                        <Skeleton className="h-5 w-40 rounded-md" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const avatarSrc = customer?.image?.startsWith('http')
         ? customer.image

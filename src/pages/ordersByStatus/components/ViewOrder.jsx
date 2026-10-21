@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/dropdownMenu';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/custom/button';
-import Loader from '../../../components/Shared/loader/loader';
+import OrderDetailsSkeleton from './OrderDetailsSkeleton';
 import toast from 'react-hot-toast';
 import { jsPDF } from 'jspdf';
 import {
@@ -53,11 +53,7 @@ export default function ViewOrder({ targetID, setShowItem, refetch }) {
   }, [singleOrder?.orderStatus]);
 
   if (isLoading) {
-    return (
-      <div className="p-12 flex items-center justify-center">
-        <Loader height="30dvh" />
-      </div>
-    );
+    return <OrderDetailsSkeleton />;
   }
 
   if (!singleOrder) {

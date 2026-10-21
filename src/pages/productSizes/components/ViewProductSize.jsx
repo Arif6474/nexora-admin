@@ -1,11 +1,11 @@
-import Loader from "../../../components/Shared/loader/loader";
+import DetailsSkeleton from "@/components/Shared/DetailsSkeleton/DetailsSkeleton";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import { useGetSingleProductSizeQuery } from "../../../redux/features/productSizes/productSizeApi";
 
 export default function ViewProductSize({ targetID }) {
     const { data: productSize, isLoading } = useGetSingleProductSizeQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) return <DetailsSkeleton count={3} hasImage={false} />;
 
     return (
         <div className="pt-4 max-h-[75vh] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-6">

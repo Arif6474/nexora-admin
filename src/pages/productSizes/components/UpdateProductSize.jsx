@@ -8,7 +8,7 @@ import { Button } from "@/components/custom/button";
 import InputField from "@/components/custom/inputField";
 import SelectField from "@/components/custom/SelectField";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { Form } from "@/components/ui/form";
 
 export default function UpdateProductSize({ setShowUpdateForm, refetch, targetID, parentID }) {
@@ -54,7 +54,7 @@ export default function UpdateProductSize({ setShowUpdateForm, refetch, targetID
   };
 
   if (productSizeLoading) {
-    return <Loader height="30dvh" />;
+    return <FormSkeleton fields={2} />;
   }
 
   const sizeOptions = sizes.map(s => ({

@@ -1,4 +1,4 @@
-import Loader from "../../../components/Shared/loader/loader";
+import DetailsSkeleton from "@/components/Shared/DetailsSkeleton/DetailsSkeleton";
 import { Image } from "../../../components/Shared/Image/Image";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import { useGetSingleProductImageQuery } from "../../../redux/features/productImages/productImageApi";
@@ -6,7 +6,7 @@ import { useGetSingleProductImageQuery } from "../../../redux/features/productIm
 export default function ViewProductImage({ targetID }) {
     const { data: productImage, isLoading } = useGetSingleProductImageQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) return <DetailsSkeleton count={2} hasImage={true} />;
 
     return (
         <div className="pt-4 max-h-[75vh] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,4 +1,4 @@
-import Loader from "../../../components/Shared/loader/loader";
+import DetailsSkeleton from "@/components/Shared/DetailsSkeleton/DetailsSkeleton";
 import { Image } from "../../../components/Shared/Image/Image";
 import TitleDescription from "../../../components/Shared/titleDescription/titleDescription";
 import { useSingleProductColorQuery } from "../../../redux/features/productColors/productColorApi";
@@ -6,7 +6,7 @@ import { useSingleProductColorQuery } from "../../../redux/features/productColor
 export default function ViewProductColor({ targetID }) {
     const { data: productColor, isLoading } = useSingleProductColorQuery({ id: targetID });
 
-    if (isLoading) return <Loader height="30dvh" />;
+    if (isLoading) return <DetailsSkeleton count={3} hasImage={false} />;
 
     return (
         <div className="pt-4 max-h-[75vh] overflow-auto space-y-4">

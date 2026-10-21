@@ -25,7 +25,8 @@ import {
     IconX,
     IconPlus
 } from '@tabler/icons-react';
-import Loader from '../../components/Shared/loader/loader';
+import TableSkeleton from '@/components/Shared/TableSkeleton/TableSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import ViewOrder from '@/pages/ordersByStatus/components/ViewOrder';
 import ShowCrudModal from '@/components/layout/CRUD/showCrudModal/showCrudModal';
 import toast from 'react-hot-toast';
@@ -311,6 +312,7 @@ export default function OrdersReport() {
                         sparklineColor="#f59e0b"
                         sparklinePath="M 2,36 Q 25,34 40,24 T 70,22 T 96,8"
                         cardId="orders-delivered"
+                        loading={isLoading}
                     />
 
                     {/* 2. Total Revenue */}
@@ -326,6 +328,7 @@ export default function OrdersReport() {
                         sparklineColor="#10b981"
                         sparklinePath="M 2,38 Q 25,38 45,28 T 72,24 T 96,10"
                         cardId="revenue-delivered"
+                        loading={isLoading}
                     />
 
                     {/* 3. Delivered */}
@@ -341,6 +344,7 @@ export default function OrdersReport() {
                         sparklineColor="#3b82f6"
                         sparklinePath="M 2,38 Q 28,38 45,36 T 70,26 T 96,12"
                         cardId="delivered-count"
+                        loading={isLoading}
                     />
 
                     {/* 4. Discounts */}
@@ -356,6 +360,7 @@ export default function OrdersReport() {
                         sparklineColor="#a855f7"
                         sparklinePath="M 2,38 Q 25,38 45,34 T 70,28 T 96,14"
                         cardId="discounts-applied"
+                        loading={isLoading}
                     />
                 </div>
 
@@ -404,8 +409,8 @@ export default function OrdersReport() {
                     </div>
 
                     {isLoading ? (
-                        <div className="p-16 flex justify-center">
-                            <Loader height="80px" />
+                        <div className="p-4 sm:p-6">
+                            <TableSkeleton columns={7} rows={6} showPagination={false} />
                         </div>
                     ) : mode === 'daily' ? (
                         /* DAILY MODE TABLE: Individual Delivered Orders */
@@ -1005,6 +1010,7 @@ function DeliveredStatCard({
     sparklineColor,
     sparklinePath,
     cardId,
+    loading = false,
 }) {
     return (
         <div className="bg-white dark:bg-[#11141b] border border-stone-200/90 dark:border-[#1e2330] p-5 rounded-2xl relative overflow-hidden transition-all duration-300 hover:border-amber-500/40 dark:hover:border-[#2b3345] hover:shadow-lg dark:hover:shadow-xl shadow-sm dark:shadow-md flex flex-col justify-between min-h-[155px]">
@@ -1018,9 +1024,13 @@ function DeliveredStatCard({
                 <h3 className="text-xs font-medium text-stone-500 dark:text-zinc-400">
                     {title}
                 </h3>
-                <p className="text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">
-                    {value}
-                </p>
+                {loading ? (
+                    <Skeleton className="h-8 w-24 rounded-lg mt-1" />
+                ) : (
+                    <p className="text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">
+                        {value}
+                    </p>
+                )}
             </div>
 
             {/* Bottom Row: Badge + Glowing Sparkline */}

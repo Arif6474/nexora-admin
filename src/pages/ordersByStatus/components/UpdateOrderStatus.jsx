@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/custom/button";
 import toast from "react-hot-toast";
-import Loader from "../../../components/Shared/loader/loader";
+import FormSkeleton from "@/components/Shared/FormSkeleton/FormSkeleton";
 import { Form } from "@/components/ui/form";
 import SelectField from "@/components/custom/SelectField";
 import {
@@ -84,7 +84,7 @@ export default function UpdateOrderStatus({ setShowUpdateForm, refetch, targetID
 
   // ✅ Conditional rendering happens after all hooks
   if (isLoading) {
-    return <Loader height="30dvh" />;
+    return <FormSkeleton fields={1} />;
   }
 
   return (
